@@ -9,7 +9,8 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      currentPath: ''
+      currentPath: '',
+      initialDone: false
     }
   }
 
@@ -19,6 +20,12 @@ class App extends Component {
 
   componentWillUpdate () {
     this.updateLayout()
+  }
+
+  componentDidMount () {
+    setTimeout(() => {
+      this.setState({initialDone: true})
+    }, 200)
   }
 
   updateLayout () {
@@ -42,9 +49,11 @@ class App extends Component {
   render () {
     return (
       <div className='App'>
-        <Router>
-          { renderRoutes(routes) }
-        </Router>
+        {
+          this.state.initialDone ? <Router>
+            { renderRoutes(routes) }
+          </Router> : <div className='loading'>加载中。。。</div>
+        }
       </div>
     )
   }

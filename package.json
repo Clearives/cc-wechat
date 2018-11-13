@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon server/bin/www",
-    "dev": "./node_modules/./bin/nodemon bin/www",
-    "prd": "pm2 start bin/www",
+    "start": "nodemon ./app.js",
+    "prd": "pm2 start ./app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

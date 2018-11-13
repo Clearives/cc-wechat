@@ -4,7 +4,9 @@ const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
-
+const http = require('http')
+const {normalizePort, onError, onListening} = require('./server/utils/serverUtils').serverUtils
+const port = normalizePort(process.env.PORT || '4009');
 const index = require('./server/routes/index')
 
 // error handler
@@ -40,4 +42,10 @@ app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 });
 
-module.exports = app
+const server = http.createServer(app.callback());
+server.listen(port);
+server.on('error', onError);
+server.on('listening', function () {
+    onListening(server)
+});
+

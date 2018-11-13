@@ -5,10 +5,12 @@ export default [
   {
     path: '/',
     exact: true,
-    component: MainView
+    component: MainView,
+    title: 'MainView'
   },
   {
     path: '/app',
-    component: AppView
+    component: AppView,
+    title: 'AppView'
   }
 ]

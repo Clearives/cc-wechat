@@ -36,3 +36,8 @@ body {
   font-size: .4rem;
   font-weight: normal;
 }
+
+.href {
+  font-size: .28rem;
+  color: #61dafb;
+}

@@ -18,7 +18,7 @@ export default class MainView extends Component {
           <img src={require('../assets/logo.jpg')} className='App-logo shake-rotate' alt='logo' />
         </div>
         <h3 className='App-title'>cc-wehcat</h3>
-        <a className='href' href='/app'>app</a>
+        <a className='href' href='#/app'>app</a>
       </div>
     )
   }

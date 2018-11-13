@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {hot} from 'react-hot-loader'
 import {renderRoutes} from 'react-router-config'
-import {BrowserRouter as Router} from 'react-router-dom'
 import routes from 'routes'
 import './App.css'
 
@@ -29,7 +28,7 @@ class App extends Component {
   }
 
   updateLayout () {
-    let pathname = window.location.pathname.toLowerCase()
+    let pathname = window.location.hash.split('#')[1].split('?')[0].toLowerCase()
     let title = document.title
     routes.forEach((item) => {
       if (item.path.toLowerCase() === pathname) {
@@ -50,9 +49,9 @@ class App extends Component {
     return (
       <div className='App'>
         {
-          this.state.initialDone ? <Router>
+          this.state.initialDone ? <div>
             { renderRoutes(routes) }
-          </Router> : <div className='loading'>加载中。。。</div>
+          </div> : <div className='loading'>加载中。。。</div>
         }
       </div>
     )

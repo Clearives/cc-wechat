@@ -1,5 +1,5 @@
-const Base64 = require("js-base64").Base64;
-const sign = require("../../utils/sign.js");
+const Base64 = require("js-base64").Base64
+const sign = require("../../utils/sign.js")
 const {Http} = require('../../utils/http')
 const {config} = require('../../config')
 const base = {

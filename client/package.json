@@ -18,8 +18,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "es6-promise": "^4.2.5",
+    "js-base64": "^2.4.9",
     "loadable-components": "^2.2.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",

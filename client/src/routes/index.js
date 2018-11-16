@@ -6,11 +6,11 @@ export default [
     path: '/',
     exact: true,
     component: MainView,
-    title: 'MainView'
+    title: '微信测试（koa2 react）'
   },
   {
     path: '/app',
     component: AppView,
-    title: 'AppView'
+    title: 'APP入口'
   }
 ]

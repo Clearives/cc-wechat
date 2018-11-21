@@ -1,1 +1,6 @@
-{}
+{
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#f8f8f8",
+  "navigationBarTitleText": "cc-wechat-mini",
+  "navigationBarTextStyle": "black"
+}

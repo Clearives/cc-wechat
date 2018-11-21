@@ -1,1 +1,8 @@
-<view class="intro">欢迎使用代码片段，可在控制台查看代码片段的说明和文档</view>
+<view class="container">
+  <view class="userinfo">
+    <view class="userAvatarUrl">
+      <open-data type="userAvatarUrl" lang="zh_CN"></open-data>
+    </view>
+    <open-data class="userNickName" type="userNickName" lang="zh_CN"></open-data>
+  </view>
+</view>

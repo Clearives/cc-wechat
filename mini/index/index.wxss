@@ -1,4 +1,13 @@
-.intro {
-  margin: 30px;
+.userAvatarUrl {
+  overflow: hidden;
+  display: block;
+  width: 160rpx;
+  height: 160rpx;
+  margin: 100rpx auto;
+  border-radius: 50%;
+}
+
+.userNickName {
+  display: block;
   text-align: center;
 }

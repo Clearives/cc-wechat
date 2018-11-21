@@ -1,0 +1,8 @@
+<view class="container">
+  <view class="userinfo">
+    <view class="userAvatarUrl">
+      <open-data type="userAvatarUrl" lang="zh_CN"></open-data>
+    </view>
+    <open-data class="userNickName" type="userNickName" lang="zh_CN"></open-data>
+  </view>
+</view>

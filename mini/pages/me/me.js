@@ -7,7 +7,7 @@ Page({
   onLoad: () => {
     console.log('index onLoad')
   },
-  onShow: function() {
+  onShow: function () {
     console.log(this)
   }
 })

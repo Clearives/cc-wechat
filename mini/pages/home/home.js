@@ -9,5 +9,12 @@ Page({
         category: res.data.res.category
       })
     })
+  },
+  goDetail: function(e) {
+    var item = e.currentTarget.dataset.item;
+    console.log(item)
+    wx.navigateTo({
+      url: "/pages/gallery/gallery?id=" + item.id + "&title=" + item.name
+    })
   }
 })

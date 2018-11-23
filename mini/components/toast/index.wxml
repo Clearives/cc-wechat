@@ -1,0 +1,4 @@
+<view class="c-toast-mask" wx:if="{{ visible && mask }}" bindtap="handleHide"></view>
+<view class="c-class c-toast" wx:if="{{ visible }}">
+    <view class="c-toast-content" wx:if="{{ content }}">{{ content }}</view>
+</view>

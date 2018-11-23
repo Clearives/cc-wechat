@@ -1,0 +1,7 @@
+<view class="container">
+    <block wx:for="{{categoryData}}" wx:for-item="item" wx:for-index="i" wx:key="key">
+      <view class="category-item {{i%2 ==0 ? 'left' : 'right'}}">
+        <image bindtap="goDetail" data-item="{{item}}" class='category-item-img' src="{{item.thumb}}" mode="widthFix"></image>
+      </view>
+    </block>
+</view>

@@ -1,0 +1,24 @@
+.container {
+  text-align: center;
+  width: 100%;
+}
+
+.category-item {
+  width: 49.5%;
+  display: block;
+  height: auto;
+  margin-bottom: 1%;
+}
+.category-item.left {
+  float: left;
+}
+
+.category-item.right {
+  float: right;
+}
+
+.category-item .category-item-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}

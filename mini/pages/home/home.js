@@ -1,12 +1,12 @@
 import Http from '../../utils/http'
 Page({
   data: {
-    address: ''
+    category: ''
   },
   onLoad: function() {
-    Http.get('http://api.map.baidu.com/location/ip?ak=F454f8a5efe5e577997931cc01de3974', {}).then(res => {
+    Http.get('http://service.picasso.adesk.com/v1/vertical/category?adult=false&first=1', {}).then(res => {
       this.setData({
-        address: res.data.address
+        category: res.data.res.category
       })
     })
   }

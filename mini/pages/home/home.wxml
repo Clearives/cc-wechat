@@ -1,5 +1,10 @@
 <view class="container">
-  <view class='address'>
-    <text>{{address}}</text>
-  </view>
+    <block wx:for="{{category}}" wx:for-item="item" wx:for-index="i" wx:key="key">
+      <view class='category-item'>
+        <image bindtap="showPreview" data-index="{{i}}" class='category-item-img' src="{{item.cover}}" mode="widthFix"></image>
+        <view class='category-item-name'>
+          <text>{{item.name}}</text>
+        </view>
+      </view>
+    </block>
 </view>

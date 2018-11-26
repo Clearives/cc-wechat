@@ -1,0 +1,86 @@
+.main-view p {
+  color: #e9e9e9;
+}
+.main-view .btn-group .btn {
+  display: inline-block;
+  text-decoration: none;
+  width: 100px;
+  height: 60px;
+  line-height: 60px;
+  border: 2px solid #e9e9e9;
+  border-radius: 60px;
+  margin: 0 12px;
+  color: #e9e9e9;
+  -webkit-transition: .1s;
+  transition: .1s;
+}
+
+.main-view .btn-group .btn:hover,
+.main-view .btn-group .active {
+  background-color: #e9e9e9;
+  color: #2d2d2d;
+}
+
+body {
+  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+}
+
+.App {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.App-logo {
+  width: 3rem;
+  height: 3rem;
+  /*border-radius: 50%;*/
+}
+
+.App-logo:hover {
+  -webkit-animation: App-logo-spin infinite 2s linear;
+          animation: App-logo-spin infinite 2s linear;
+}
+
+@-webkit-keyframes App-logo-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.App-header {
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: .4rem;
+  font-weight: normal;
+}
+
+.href {
+  font-size: .28rem;
+  color: #61dafb;
+}
+
+.loading {
+  font-size: .28rem;
+  color: #61dafb;
+}
+

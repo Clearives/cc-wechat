@@ -1,11 +1,14 @@
 const app = getApp()
+const { _Toast } = require('../../components/base/index');
 
 Page({
   data: {
     userInfo: {}
   },
   onLoad: () => {
-    console.log('index onLoad')
+    _Toast({
+      content: '文本提示'
+    });
   },
   onShow: function () {
     console.log(this)

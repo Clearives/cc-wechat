@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "cc-wechat-mini"
+  "navigationBarTitleText": "我的",
+  "usingComponents": {
+    "c-toast": "../../components/toast/index"
+  }
 }

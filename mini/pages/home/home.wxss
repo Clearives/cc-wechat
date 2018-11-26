@@ -1,18 +1,17 @@
 .container {
   text-align: center;
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .category-item {
-  width: 50%;
-  display: inline-block;
-  height: auto;
+  width: calc(100%/3);
 }
 
 .category-item .category-item-img {
   display: block;
   width: 100%;
-  height: auto;
 }
 
 .category-item .category-item-name {

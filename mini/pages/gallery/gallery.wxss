@@ -18,3 +18,22 @@
   width: 100%;
   height: auto;
 }
+.top-nav{
+    white-space: nowrap;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2%;
+}
+
+.top-btn{
+    display: inline-block;
+    padding: 22rpx;
+    font-size: 16px;
+}
+
+.top-hoverd-btn{
+    color: #42bd56;
+    font-size: 17px;
+    border-bottom: #42bd56 solid 1px;
+}
+

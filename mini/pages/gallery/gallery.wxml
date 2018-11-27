@@ -1,6 +1,6 @@
 <scroll-view scroll-x="true" class="top-nav">
   <block wx:for="{{category}}" wx:for-item="item" wx:for-index="i" wx:key="key">
-    <view bindtap="tabGalleryDetail" class="top-btn" data-item="{{item}}">{{item.name}}</view>
+    <view bindtap="tabGalleryDetail" class="top-btn {{item.id === id ? 'selected' : ''}}" data-item="{{item}}">{{item.name}}</view>
   </block>
 </scroll-view>
 <view class="container">

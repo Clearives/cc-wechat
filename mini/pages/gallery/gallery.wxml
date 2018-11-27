@@ -3,10 +3,12 @@
     <view bindtap="tabGalleryDetail" class="top-btn {{item.id === id ? 'selected' : ''}}" data-item="{{item}}">{{item.name}}</view>
   </block>
 </scroll-view>
-<view class="container">
+<scroll-view scroll-y style="height: {{_height}}px;" bindscrolltoupper="onPullDownRefresh">
+   <view class="container">
     <block wx:for="{{categoryData}}" wx:for-item="item" wx:for-index="i" wx:key="key">
       <view class="category-item {{i%2 ==0 ? 'left' : 'right'}}">
         <image bindtap="previewImage" data-item="{{item}}" class='category-item-img' src="{{item.thumb}}" mode="widthFix"></image>
       </view>
     </block>
 </view>
+  </scroll-view>

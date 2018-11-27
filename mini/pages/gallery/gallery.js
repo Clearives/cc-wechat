@@ -10,7 +10,8 @@ Page({
     title: '',
     category: [],
     categoryData: [],
-    imgUrls: []
+    imgUrls: [],
+    _height: 0
   },
 
   /**
@@ -25,7 +26,8 @@ Page({
     console.log(options)
     this.setData({
       id: options.id,
-      title: options.title
+      title: options.title,
+      _height: wx.getSystemInfoSync().windowHeight -30
     })
     wx.setNavigationBarTitle({
       title: options.title,

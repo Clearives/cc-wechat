@@ -2,6 +2,7 @@
   "navigationBarTitleText": "个人中心",
   "navigationBarBackgroundColor": "#41ABFE",
   "navigationBarTextStyle": "#fff",
+  "disableScroll": true,
   "usingComponents": {
     "c-toast": "../../components/toast/index"
   }

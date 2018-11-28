@@ -6,4 +6,3 @@
     <open-data class="userNickName" type="userNickName" lang="zh_CN"></open-data>
   </view>
 </view>
-<c-toast c-class="red" id="toast" />

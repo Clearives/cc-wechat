@@ -25,6 +25,7 @@
     margin: 0 auto;
     padding: 0 2%;
     margin-bottom: 10rpx;
+    box-sizing:border-box;
 }
 
 .top-btn{

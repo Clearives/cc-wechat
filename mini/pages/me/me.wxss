@@ -1,11 +1,13 @@
-.container {
-  
+page {
+  background: #f8f8f8;
 }
+
 .userinfo {
-  background: #41ABFE;
+  background: #41abfe;
   height: 200rpx;
   position: relative;
 }
+
 .userAvatarUrl {
   overflow: hidden;
   display: block;
@@ -24,5 +26,21 @@
   text-align: center;
   position: relative;
   top: 280rpx;
-  color: #999999;
+  color: #999;
+}
+
+.detail {
+  width: 90%;
+  border-radius: 10rpx;
+  margin: 200rpx auto 0;
+  background: #fff;
+}
+
+.detail-list {
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 15rpx 0 30rpx;
+  display: flex;
+  border-bottom: 1px solid #f8f8f8;
+  position: relative;
 }

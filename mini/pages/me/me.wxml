@@ -5,4 +5,18 @@
     </view>
     <open-data class="userNickName" type="userNickName" lang="zh_CN"></open-data>
   </view>
+  <view class='detail'>
+    <view class='detail-list'>
+      意见反馈
+    </view>
+    <view class='detail-list'>
+      微信
+    </view>
+    <view class='detail-list'>
+      Github
+    </view>
+    <view class='detail-list'>
+      关于我们
+    </view>
+  </view>
 </view>

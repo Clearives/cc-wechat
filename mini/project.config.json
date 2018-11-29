@@ -8,12 +8,13 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.0",
+	"libVersion": "2.4.1",
 	"appid": "wxbba5760be10566fe",
-	"projectname": "mini",
+	"projectname": "mini2",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},

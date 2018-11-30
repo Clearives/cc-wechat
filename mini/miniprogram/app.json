@@ -2,7 +2,8 @@
   "pages": [
     "pages/home/home",
     "pages/me/me",
-    "pages/gallery/gallery"
+    "pages/gallery/gallery",
+    "pages/share/share"
   ],
   "window": {
     "backgroundTextStyle": "light",

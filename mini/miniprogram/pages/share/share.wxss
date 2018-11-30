@@ -1,0 +1,11 @@
+.page.share {
+}
+
+.share .weui-uploader {
+    margin-top: 10px;
+    padding: 0 15px;
+}
+.share .weui-btn {
+    margin-top: 30px;
+    width: 80%;
+}

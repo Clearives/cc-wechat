@@ -13,7 +13,7 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="请输入分享描述" value="{{desc}}" bindinput="descInput" style="height: 3.3em" />
+                    <textarea class="weui-textarea" placeholder="请输入分享描述" value="{{desc}}" bindinput="descInput" style="height: 3.3em;position: initial;z-index: 0;" />
                     <view class="weui-textarea-counter">0/100</view>
                 </view>
             </view>
@@ -38,5 +38,13 @@
         </view>
 
         <button class="weui-btn" type="primary" bindtap="shareSubmit">生成分享海报</button>
+    </view>
+    <cover-view class='imagePathBox' hidden="{{maskHidden == false}}">
+        <cover-image src="{{imagePath}}" class='canvas-img'></cover-image>
+        <button class="weui-btn save" type="primary" bindtap="saveImg">保存相册，分享到朋友圈</button>
+    </cover-view>
+    <view hidden="{{maskHidden == false}}" class="mask"></view>
+    <view class="canvas-box" hidden="{{canvasHidden == true}}">
+        <canvas  style="width: 375px;height: 667px;position:fixed;top:9999px" canvas-id="share-canvas"/>
     </view>
 </view>

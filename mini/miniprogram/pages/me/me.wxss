@@ -36,6 +36,10 @@ page {
   background: #fff;
 }
 
+.detail-next {
+  margin-top: 20rpx;
+}
+
 .detail-list {
   height: 80rpx;
   line-height: 80rpx;

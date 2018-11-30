@@ -1,22 +1,31 @@
 <view class="container">
-  <view class="userinfo">
-    <view class="userAvatarUrl">
-      <open-data type="userAvatarUrl" lang="zh_CN"></open-data>
+    <view class="userinfo">
+        <view class="userAvatarUrl">
+            <open-data type="userAvatarUrl" lang="zh_CN"></open-data>
+        </view>
+        <open-data class="userNickName" type="userNickName" lang="zh_CN"></open-data>
     </view>
-    <open-data class="userNickName" type="userNickName" lang="zh_CN"></open-data>
-  </view>
-  <view class='detail'>
-    <view class='detail-list'>
-      意见反馈
+    <view class='detail'>
+        <view class='detail-list' bindtap="goPage" data-url="/pages/share/share">
+            canvas分享
+        </view>
+        <view class='detail-list'>
+            云开发
+        </view>
     </view>
-    <view class='detail-list'>
-      微信
+
+    <view class='detail detail-next'>
+        <view class='detail-list'>
+            意见反馈
+        </view>
+        <view class='detail-list'>
+            微信
+        </view>
+        <view class='detail-list'>
+            Github
+        </view>
+        <view class='detail-list'>
+            关于我们
+        </view>
     </view>
-    <view class='detail-list'>
-      Github
-    </view>
-    <view class='detail-list'>
-      关于我们
-    </view>
-  </view>
 </view>

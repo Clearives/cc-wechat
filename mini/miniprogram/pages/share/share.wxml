@@ -4,7 +4,7 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
                 <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入分享标题" />
+                    <input class="weui-input" placeholder="请输入分享标题" value="{{title}}" bindblur="titleInput" />
                 </view>
             </view>
         </view>
@@ -13,7 +13,7 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="请输入分享描述" style="height: 3.3em" />
+                    <textarea class="weui-textarea" placeholder="请输入分享描述" value="{{desc}}" bindinput="descInput" style="height: 3.3em" />
                     <view class="weui-textarea-counter">0/100</view>
                 </view>
             </view>
@@ -37,6 +37,6 @@
             </view>
         </view>
 
-        <button class="weui-btn" type="primary">生成分享海报</button>
+        <button class="weui-btn" type="primary" bindtap="shareSubmit">生成分享海报</button>
     </view>
 </view>

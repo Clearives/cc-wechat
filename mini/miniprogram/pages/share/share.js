@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    title: '我是标题',
+    desc: '我是描述',
     files: []
   },
 
@@ -76,10 +78,23 @@ Page({
       }
     })
   },
-  previewImage: function(e){
+  previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.files // 需要预览的图片http链接列表
     })
+  },
+  titleInput: function (e) {
+    this.setData({
+      title: e.detail.value
+    })
+  },
+  descInput: function (e) {
+    this.setData({
+      desc: e.detail.value
+    })
+  },
+  shareSubmit: function () {
+    console.log(this.data)
   }
 })

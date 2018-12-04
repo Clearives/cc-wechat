@@ -38,6 +38,10 @@
         </view>
 
         <button class="weui-btn" type="primary" bindtap="shareSubmit">生成分享海报</button>
+
+        <poster id="poster" hide-loading="{{false}}" preload="{{true}}" config="{{jdConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
+            <button>生成海报</button>
+        </poster>
     </view>
     <cover-view class='imagePathBox' hidden="{{maskHidden == false}}">
         <cover-image src="{{imagePath}}" class='canvas-img'></cover-image>

@@ -8,8 +8,75 @@ Page({
     title: '我是标题',
     desc: '我是描述',
     files: [],
-    maskHidden: false
+    maskHidden: false,
+    jdConfig: {
+      width: 750,
+      height: 1334,
+      backgroundColor: '#fff',
+      debug: false,
+      blocks: [
+        {
+          width: 690,
+          height: 808,
+          x: 30,
+          y: 183,
+          borderWidth: 2,
+          borderColor: '#f0c2a0',
+          borderRadius: 20,
+        },
+        {
+          width: 634,
+          height: 74,
+          x: 59,
+          y: 770,
+          backgroundColor: '#93e2ff',
+          opacity: 0.5,
+          zIndex: 100,
+        },
+      ],
+      texts: [
+        {
+          x: 113,
+          y: 61,
+          baseLine: 'middle',
+          text: 'Clearives',
+          fontSize: 32,
+          color: '#8d8d8d',
+        },
+        {
+          x: 30,
+          y: 113,
+          baseLine: 'top',
+          text: '发现一个好物，推荐给你呀',
+          fontSize: 38,
+          color: '#080808',
+        },
+        {
+          x: 92,
+          y: 810,
+          fontSize: 38,
+          baseLine: 'middle',
+          text: '1231313',
+          width: 570,
+          lineNum: 1,
+          color: '#8d8d8d',
+          zIndex: 200,
+        }
+      ],
+      images: [
+        {
+          width: 62,
+          height: 62,
+          x: 30,
+          y: 30,
+          borderRadius: 62,
+          url: 'https://lc-I0j7ktVK.cn-n1.lcfile.com/02bb99132352b5b5dcea.jpg',
+        }
+      ]
+
+    }
   },
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -157,7 +224,7 @@ Page({
           var tempFilePath = res.tempFilePath
           that.setData({
             imagePath: tempFilePath,
-            canvasHidden:true
+            canvasHidden: true
           })
         },
         fail: function (res) {
@@ -166,11 +233,11 @@ Page({
       })
     }, 600)
   },
-  saveImg:function(){
+  saveImg: function () {
     var that = this
     wx.saveImageToPhotosAlbum({
       filePath: that.data.imagePath,
-      success(res) {
+      success (res) {
         wx.showModal({
           content: '图片已保存到相册',
           showCancel: false,
@@ -182,13 +249,23 @@ Page({
                 maskHidden: false
               })
             }
-          },fail:function(res){
+          }, fail: function (res) {
             console.log(res)
           }
         })
       }
     })
-  }
+  },
+  onPosterSuccess (e) {
+    const {detail} = e;
+    wx.previewImage({
+      current: detail,
+      urls: [detail]
+    })
+  },
+  onPosterFail (err) {
+    console.error(err);
+  },
 
 
 })

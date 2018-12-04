@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "分享给你的朋友",
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "poster": "/components/poster/index"
+  }
 }

@@ -1,4 +1,7 @@
 <style lang="less">
+  .page_me {
+    padding-top: 20vh;
+  }
   .userinfo {
     display: flex;
     flex-direction: column;
@@ -16,7 +19,7 @@
   }
 </style>
 <template>
-  <view class="container">
+  <view class="container page_me">
     <view class="userinfo">
       <image class="userinfo-avatar"
              src="{{ userInfo.avatarUrl }}"

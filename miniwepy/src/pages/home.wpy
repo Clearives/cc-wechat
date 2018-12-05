@@ -1,0 +1,39 @@
+<style lang="less">
+  .page_index {
+    padding-top: 20vh;
+  }
+</style>
+<template>
+  <view class="container page_index">
+    <text>首页</text>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Home extends wepy.page {
+    config = {
+      navigationBarTitleText: '首页'
+    }
+    components = {
+    }
+
+    mixins = []
+
+    data = {
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+
+    events = {
+    }
+
+    onLoad() {
+    }
+  }
+</script>

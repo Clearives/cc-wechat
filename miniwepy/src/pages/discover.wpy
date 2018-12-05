@@ -1,0 +1,39 @@
+<style lang="less">
+  .page_discover {
+    padding-top: 20vh;
+  }
+</style>
+<template>
+  <view class="container page_discover">
+    <text>发现</text>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Discover extends wepy.page {
+    config = {
+      navigationBarTitleText: '发现'
+    }
+    components = {
+    }
+
+    mixins = []
+
+    data = {
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+
+    events = {
+    }
+
+    onLoad() {
+    }
+  }
+</script>

@@ -32,8 +32,8 @@ export default class Auth extends wepy.page {
             wepy.setStorageSync('SYSTEM_INFO', systemInfo)
           }
         }
-        wepy.redirectTo({
-          url: '/pages/index'
+        wepy.switchTab({
+          url: '/pages/me'
         })
       }
     }
@@ -44,8 +44,8 @@ export default class Auth extends wepy.page {
           wepy.setStorageSync('USER_INFO', e.detail.userInfo)
           let systemInfo = wepy.getSystemInfoSync()
           wepy.setStorageSync('SYSTEM_INFO', systemInfo)
-          wepy.redirectTo({
-            url: '/pages/index'
+          wepy.switchTab({
+            url: '/pages/me'
           })
           // todo 请求后台wxJsCode2Session，成功跳转，失败跳转
         }

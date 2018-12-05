@@ -1,0 +1,88 @@
+<style lang="less">
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .userinfo-avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+  }
+
+  .userinfo-nickname {
+    color: #aaa;
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="userinfo">
+      <image class="userinfo-avatar"
+             src="{{ userInfo.avatarUrl }}"
+             background-size="cover" />
+      <view class="userinfo-nickname">{{ userInfo.nickName }}</view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Me extends wepy.page {
+    config = {
+      navigationBarTitleText: '个人中心'
+    }
+    components = {
+    }
+
+    mixins = []
+
+    data = {
+      userInfo: {
+        nickName: '...'
+      }
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+
+    events = {
+    }
+
+    async onShow() {
+      let that = this
+      let res = await wepy.getSetting()
+      if ((res.authSetting)['scope.userInfo']) {
+        let userInfo = wepy.getStorageSync('USER_INFO')
+        if (!userInfo.nickName) {
+          let data = await wepy.getUserInfo()
+          if (data) {
+            that.$parent.globalData.userInfo = data.userInfo
+            that.setData({
+              userInfo: userInfo
+            })
+            wepy.setStorageSync('USER_INFO', data.userInfo)
+          }
+          let res = await wepy.login()
+          if (res.code) {
+            let systemInfo = wepy.getSystemInfoSync()
+            wepy.setStorageSync('SYSTEM_INFO', systemInfo)
+          }
+        } else {
+          that.$parent.globalData.userInfo = userInfo
+          that.setData({
+            userInfo: userInfo
+          })
+        }
+      } else {
+        wepy.redirectTo({
+          url: '/pages/auth'
+        })
+      }
+    }
+  }
+</script>

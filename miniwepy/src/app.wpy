@@ -16,7 +16,8 @@ import 'wepy-async-function'
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/index'
+      'pages/index',
+      'pages/auth'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -33,6 +34,7 @@ export default class extends wepy.app {
   constructor () {
     super()
     this.use('requestfix')
+    this.use('promisify')
   }
 
   onLaunch() {
@@ -52,17 +54,32 @@ export default class extends wepy.app {
     console.log(data)
   }
 
-  getUserInfo(cb) {
-    const that = this
-    if (this.globalData.userInfo) {
-      return this.globalData.userInfo
-    }
-    wepy.getUserInfo({
-      success (res) {
-        that.globalData.userInfo = res.userInfo
-        cb && cb(res.userInfo)
+  async getUserInfo(cb) {
+    let that = this
+    let res = await wepy.getSetting()
+    if ((res.authSetting)['scope.userInfo']) {
+      let userInfo = wepy.getStorageSync('USER_INFO')
+      if (!userInfo.nickName) {
+        let data = await wepy.getUserInfo()
+        if (data) {
+          that.globalData.userInfo = data.userInfo
+          cb && cb(data.userInfo)
+          wepy.setStorageSync('USER_INFO', data.userInfo)
+        }
+        let res = await wepy.login()
+        if (res.code) {
+          let systemInfo = wepy.getSystemInfoSync()
+          wepy.setStorageSync('SYSTEM_INFO', systemInfo)
+        }
+      } else {
+        that.globalData.userInfo = userInfo
+        cb && cb(userInfo)
       }
-    })
+    } else {
+      wepy.redirectTo({
+        url: '/pages/auth'
+      })
+    }
   }
 }
 </script>

@@ -1,6 +1,7 @@
 import wepy from 'wepy'
 
 const wxRequest = async(params = {}, url) => {
+  console.log('『wepy Request Start』', params, url)
   wepy.showToast({
     title: '加载中',
     icon: 'loading'
@@ -13,6 +14,7 @@ const wxRequest = async(params = {}, url) => {
     header: { 'Content-Type': 'application/json' }
   })
   wepy.hideToast()
+  console.log('『wepy Request End』', params, url)
   return res
 }
 

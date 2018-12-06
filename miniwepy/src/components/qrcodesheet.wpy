@@ -1,10 +1,10 @@
 <template>
   <view class="pop_qr" wx:if="{{show}}">
-    <view class="qr_box">
+    <view class="qr_box" @tap="preview({{url}})">
       <image class="miniapp_code" src="{{ url }}"></image>
       <text class="miniapp_name">{{ name }}</text>
-      <text class="tips">长按识别小程序码</text>
-      <text class="tips">打开小程序</text>
+      <text class="tips">点击打开小程序码，然后长按识别</text>
+      <text class="tips">即刻打开小程序</text>
     </view>
     <view class="pop_mask" @tap="close"></view>
   </view>
@@ -28,6 +28,12 @@
       close() {
         this.show = false
         this.$emit('close')
+      },
+      preview(url) {
+        wepy.previewImage({
+          current: url,
+          urls: [url]
+        })
       }
     }
   }

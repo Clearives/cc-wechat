@@ -64,7 +64,7 @@
 
     events = {
     }
-    async onShow() {
+    async onLoad() {
       let sInfo = await wepy.getSystemInfo()
       this.limit = Math.round(sInfo.windowHeight / (sInfo.windowWidth * 100 / 750)) + 1
       this.getMiniAppList()

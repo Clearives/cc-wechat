@@ -24,7 +24,8 @@
         'pages/home',
         'pages/discover',
         'pages/me',
-        'pages/auth'
+        'pages/auth',
+        'pages/miniapp/index'
       ],
       window: {
         'backgroundTextStyle': 'light',

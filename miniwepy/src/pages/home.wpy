@@ -1,11 +1,9 @@
-<style lang="less">
-  .page_index {
-    padding-top: 20vh;
-  }
-</style>
 <template>
   <view class="container page_index">
     <text>首页</text>
+    <navigator class="nav" url="/pages/miniapp/index">
+      <button>知晓程序</button>
+    </navigator>
   </view>
 </template>
 
@@ -37,3 +35,12 @@
     }
   }
 </script>
+
+<style lang="less">
+  .page_index {
+    padding-top: 20vh;
+    .nav {
+      margin-top: 100rpx;
+    }
+  }
+</style>

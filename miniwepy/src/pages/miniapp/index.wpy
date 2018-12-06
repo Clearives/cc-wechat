@@ -1,0 +1,164 @@
+<template>
+  <view class='page_miniapp'>
+    <block wx:for='{{miniAppList}}' wx:key='key' wx:for-item='miniApp'>
+      <view class='miniapp_box'>
+        <image class='miniapp_icon' src='{{ miniApp.icon.image }}'></image>
+        <view class='miniapp_right'>
+          <text class='name'>{{ miniApp.name }}</text>
+          <text class='desc'>{{ miniApp.description }}</text>
+        </view>
+        <button class='btn_experience' @tap='experience({{ miniApp }})'>体验</button>
+      </view>
+    </block>
+    <LoadMore :show.sync='loadingMore' message='正在加载...'></LoadMore>
+    <QrcodeSheet :show.sync='showQr' :url.sync='qrUrl' :name.sync='qrName' @close.user='closeQr'></QrcodeSheet>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import apiMiniapp from '@/api/miniapp/index'
+  import LoadMore from '../../components/common/loadMore'
+  import QrcodeSheet from '../../components/qrcodesheet'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '知晓程序',
+      enablePullDownRefresh: true
+    }
+    components = {
+      LoadMore: LoadMore,
+      QrcodeSheet: QrcodeSheet
+    }
+
+    mixins = []
+
+    data = {
+      limit: 20,
+      offset: 0,
+      miniAppList: [],
+      loadingMore: true,
+      isRequest: false,
+      isEnd: false,
+      showQr: false,
+      qrUrl: '',
+      qrName: ''
+    }
+
+    computed = {
+    }
+
+    methods = {
+      experience(miniApp) {
+        console.log(miniApp)
+        this.qrUrl = miniApp.qrcode.image
+        this.qrName = miniApp.name
+        this.showQr = true
+      },
+      closeQr() {
+        this.showQr = false
+        this.qrUrl = ''
+        this.qrName = ''
+      }
+    }
+
+    events = {
+    }
+    async onShow() {
+      let sInfo = await wepy.getSystemInfo()
+      this.limit = Math.round(sInfo.windowHeight / (sInfo.windowWidth * 100 / 750)) + 1
+      this.getMiniAppList()
+    }
+    onPullDownRefresh() {
+      console.log('<----------------下拉刷新列表-------------->')
+      setTimeout(function () {
+        wepy.stopPullDownRefresh()
+      }, 1000)
+    }
+    async onReachBottom() {
+      let that = this
+      console.log('<----------------上拉加载下一页-------------->')
+      if (that.isEnd) {
+        return true
+      }
+      that.loadingMore = true
+      if (that.isRequest) {
+        return true
+      }
+      that.isRequest = true
+      this.limit = 10
+      this.getMiniAppList()
+      that.isRequest = false
+    }
+    async getMiniAppList() {
+      let params = {
+        header: '123',
+        query: {
+          limit: this.limit,
+          offset: this.offset
+        }
+      }
+      let res = await apiMiniapp.getLatestList(params)
+      this.offset = res.data.meta.offset + this.limit
+      this.miniAppList = this.miniAppList.concat(res.data.objects)
+      if (this.miniAppList.length >= 100) {
+        this.isEnd = true
+      }
+      this.loadingMore = false
+      this.$apply()
+    }
+  }
+</script>
+
+<style lang='less'>
+  .page_miniapp {
+    .miniapp_box {
+      display: flex;
+      align-items:center;
+      position: relative;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100rpx;
+      padding: 0 36rpx;
+      margin-bottom: 40rpx;
+    }
+    .miniapp_icon {
+      display: block;
+      width: 96rpx;
+      height: 96rpx;
+      text-align: center;
+      border-radius: 50%
+    }
+    .miniapp_right {
+      width: 200rpx;
+      padding: 8rpx 30rpx 0;
+      flex: 1;
+    }
+    .name {
+      display: block;
+      font-size: 30rpx;
+      font-weight: bold;
+      margin-bottom: 8rpx;
+    }
+    .desc {
+      display: block;
+      height: 48rpx;
+      color: #83898f;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .btn_experience {
+      width: 96rpx;
+      height: 48rpx;
+      line-height: 48rpx;
+      text-align: center;
+      color: #5347ff;
+      border: 1px solid #5347ff;
+      border-radius: 8rpx;
+      font-size: 24rpx;
+      padding: 0;
+    }
+  }
+</style>

@@ -130,7 +130,5 @@
         transform: translateY(-50%) matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
       }
     }
-
-
   }
 </style>

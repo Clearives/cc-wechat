@@ -1,0 +1,24 @@
+<template>
+  <repeat for="{{list}}">
+    <Cell :title.sync='item.title' :label.sync='item.label'></Cell>
+  </repeat>
+</template>
+<script>
+  import wepy from 'wepy'
+  import Cell from './cell'
+
+  export default class CellList extends wepy.component {
+    props = {
+      list: {
+        type: Array
+      }
+    }
+    components = {
+      Cell: Cell
+    }
+    methods = {
+    }
+  }
+</script>
+<style lang="less">
+</style>

@@ -1,0 +1,72 @@
+<template>
+  <view class="container page_ui">
+    <text>UI</text>
+    <view class="container">
+      <Cell title='知晓程序' label='小程序' :isLink.sync='isLink' value='详细信息' url="/pages/miniapp/index" linkType="$navigate">
+      </Cell>
+      <Cell1 title='发现'>
+        <i class="icon iconfont icon-camera" slot="icon"></i>
+      </Cell1>
+      <Cell2 title='个人中心' :isLink.sync='isLink' value='' url="/pages/me" linkType="$switch">
+        <i class="icon iconfont icon-emoji" slot="icon"></i>
+      </Cell2>
+      <CellList :list.sync='list'></CellList>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Cell from '../../components/ui/cell'
+  import CellList from '../../components/ui/cellList'
+
+  export default class UI extends wepy.page {
+    config = {
+      navigationBarTitleText: '组件库'
+    }
+    components = {
+      Cell: Cell,
+      Cell1: Cell,
+      Cell2: Cell,
+      Cell3: Cell,
+      CellList: CellList
+    }
+
+    mixins = []
+
+    data = {
+      isLink: true,
+      list: [
+        {
+          title: '列表1',
+          label: '我是描述1'
+        },
+        {
+          title: '列表2',
+          label: '我是描述2'
+        }
+      ]
+    }
+
+    computed = {
+    }
+
+    methods = {
+    }
+
+    events = {
+    }
+
+    onLoad() {
+    }
+  }
+</script>
+
+<style lang="less">
+  .page_ui {
+    padding-top: 20vh;
+    .container {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,4 +1,9 @@
 <style lang="less">
+  @import "./style/iconfont.less";
+  .c-class {
+    width: 100%;
+    box-sizing:border-box;
+  }
   page {
     background-color: #F8F8F8;
     font-size: 16px;
@@ -25,7 +30,8 @@
         'pages/discover',
         'pages/me',
         'pages/auth',
-        'pages/miniapp/index'
+        'pages/miniapp/index',
+        'pages/ui/index'
       ],
       window: {
         'backgroundTextStyle': 'light',

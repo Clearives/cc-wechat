@@ -1,0 +1,136 @@
+<template>
+  <view @tap="handleTap" class="c-class c-cell {{ isLink ? 'c-cell-access' : '' }}">
+    <view class="c-cell-icon">
+      <slot name="icon"></slot>
+    </view>
+    <view class="c-cell-bd">
+      <view wx:if="{{ title }}" class="c-cell-text">{{ title }}</view>
+      <view wx:if="{{ label }}" class="c-cell-desc">{{ label }}</view>
+      <slot></slot>
+    </view>
+    <view class="c-cell-ft">
+      <block wx:if="{{value}}">{{ value }}</block>
+    </view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class Cell extends wepy.component {
+    props = {
+      title: {
+        type: String
+      },
+      label: {
+        type: String
+      },
+      value: {
+        type: String
+      },
+      isLink: {
+        type: Boolean,
+        default: false
+      },
+      url: {
+        type: String
+      },
+      linkType: {
+        type: String,
+        value: '$navigate'
+      }
+    }
+    methods = {
+      handleTap() {
+        this.navigateTo()
+      }
+    }
+    navigateTo () {
+      const { url } = this.data
+      const type = typeof this.data.isLink
+
+      if (!this.data.isLink || !url || url === 'true' || url === 'false') return
+
+      if (type !== 'boolean' && type !== 'string') {
+        console.warn('isLink 属性值必须是一个字符串或布尔值', this.data.isLink)
+        return
+      }
+
+      if (['$navigate', '$redirect', '$switch'].indexOf(this.data.linkType) === -1) {
+        console.warn('linkType 属性可选值为 $navigate，$redirect，$switch', this.data.linkType)
+        return
+      }
+      this.$parent[this.data.linkType](url)
+    }
+  }
+</script>
+<style lang="less">
+  @import "../../style/base.less";
+  @import "../../style/mixins.less";
+  .c-cell {
+    position: relative;
+    padding: 24rpx 30rpx;
+    display: flex;
+    background: #fff;
+    align-items: center;
+    line-height: 1.4;
+    font-size: @size-font-base;
+    overflow: hidden;
+
+    &::after{
+      .hairline();
+      border-bottom-width: 1px;
+      left: 15px;
+      right: 0;
+    }
+    &-last::after{
+      display: none;
+    }
+
+    &-icon{
+      margin-right: 5px;
+      &:empty{
+        display: none
+      }
+    }
+
+    &-bd{
+      flex: 1;
+    }
+
+    &-text{
+      line-height: 24px;
+      font-size: @size-font-base;
+    }
+
+    &-desc{
+      line-height: 1.2;
+      font-size: @size-font-small;
+      color: @subsidiary-color;
+    }
+
+    &-ft{
+      position: relative;
+      text-align: right;
+      color: @text-color;
+    }
+
+    &-access &-ft{
+      padding-right: 13px;
+      &::after{
+        content: " ";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        position: absolute;
+        top: 50%;
+        right: 2px;
+        border-width: 2px 2px 0 0;
+        border-color: @border-color-base;
+        border-style: solid;
+        transform: translateY(-50%) matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+      }
+    }
+
+
+  }
+</style>

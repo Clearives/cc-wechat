@@ -1,5 +1,5 @@
 <template>
-  <view @tap="handleTap" class="c-class c-cell {{ isLink ? 'c-cell-access' : '' }}">
+  <view @tap="handleTap()" class="c-class c-cell {{ isLastCell ? 'c-cell-last' : '' }} {{ isLink ? 'c-cell-access' : '' }}">
     <view class="c-cell-icon">
       <slot name="icon"></slot>
     </view>
@@ -18,6 +18,9 @@
 
   export default class Cell extends wepy.component {
     props = {
+      itemIndex: {
+        type: Number
+      },
       title: {
         type: String
       },
@@ -37,29 +40,41 @@
       linkType: {
         type: String,
         value: '$navigate'
+      },
+      isLastCell: {
+        type: Boolean,
+        default: false
       }
     }
     methods = {
       handleTap() {
-        this.navigateTo()
+        let _wepy = null
+        if (this.$parent.$isComponent) {
+          _wepy = this.$parent
+          this.navigateTo(_wepy, this.itemIndex)
+        } else {
+          _wepy = this
+          this.navigateTo(_wepy)
+        }
       }
     }
-    navigateTo () {
-      const { url } = this.data
-      const type = typeof this.data.isLink
+    navigateTo (obj, index) {
+      let data = index ? obj.data.list[index] : obj.data
+      const { url } = data
+      const type = typeof data.isLink
 
-      if (!this.data.isLink || !url || url === 'true' || url === 'false') return
+      if (!data.isLink || !url || url === 'true' || url === 'false') return
 
       if (type !== 'boolean' && type !== 'string') {
-        console.warn('isLink 属性值必须是一个字符串或布尔值', this.data.isLink)
+        console.warn('isLink 属性值必须是一个字符串或布尔值', data.isLink)
         return
       }
 
-      if (['$navigate', '$redirect', '$switch'].indexOf(this.data.linkType) === -1) {
-        console.warn('linkType 属性可选值为 $navigate，$redirect，$switch', this.data.linkType)
+      if (['$navigate', '$redirect', '$switch'].indexOf(data.linkType) === -1) {
+        console.warn('linkType 属性可选值为 $navigate，$redirect，$switch', data.linkType)
         return
       }
-      this.$parent[this.data.linkType](url)
+      obj.$parent[data.linkType](url)
     }
   }
 </script>

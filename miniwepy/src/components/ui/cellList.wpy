@@ -1,6 +1,30 @@
 <template>
-  <repeat for="{{list}}">
-    <Cell :title.sync='item.title' :label.sync='item.label'></Cell>
+  <repeat for="{{list}}" index="index">
+    <block wx:if="{{ list.length === index + 1 }}">
+      <Cell
+        :itemIndex.sync='index'
+        :title.sync='item.title'
+        :label.sync='item.label'
+        :value.sync='item.value'
+        :isLink.sync='item.isLink'
+        :url.sync='item.url'
+        :linkType.sync='item.linkType'
+        :isLastCell.sync="isLastCell"
+      >
+      </Cell>
+    </block>
+    <block wx:else>
+      <Cell
+        :itemIndex.sync='index'
+        :title.sync='item.title'
+        :label.sync='item.label'
+        :value.sync='item.value'
+        :isLink.sync='item.isLink'
+        :url.sync='item.url'
+        :linkType.sync='item.linkType'
+      >
+      </Cell>
+    </block>
   </repeat>
 </template>
 <script>
@@ -13,10 +37,15 @@
         type: Array
       }
     }
+    data = {
+      isLastCell: true
+    }
     components = {
       Cell: Cell
     }
     methods = {
+    }
+    onLoad () {
     }
   }
 </script>

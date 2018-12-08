@@ -28,4 +28,5 @@ descInput: function (e) {
 
 ##### wepy
 
+- 组件嵌套组件，数据传递问题
 

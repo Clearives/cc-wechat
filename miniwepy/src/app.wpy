@@ -31,7 +31,8 @@
         'pages/me',
         'pages/auth',
         'pages/miniapp/index',
-        'pages/ui/index'
+        'pages/ui/index',
+        'pages/ui/list'
       ],
       window: {
         'backgroundTextStyle': 'light',

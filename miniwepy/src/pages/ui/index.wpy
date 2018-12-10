@@ -1,15 +1,7 @@
 <template>
   <view class="container page_ui">
-    <text>UI</text>
-    <view class="container">
-      <Cell title='知晓程序' label='小程序' :isLink.sync='isLink' value='详细信息' url="/pages/miniapp/index" linkType="$navigate">
-      </Cell>
-      <Cell1 title='发现'>
-        <i class="icon iconfont icon-camera" slot="icon"></i>
-      </Cell1>
-      <Cell2 title='个人中心' :isLink.sync='isLink' value='' url="/pages/me" linkType="$switch">
-        <i class="icon iconfont icon-emoji" slot="icon"></i>
-      </Cell2>
+    <text class="title">UI组件库</text>
+    <view class="panel">
       <CellList :list.sync='list'></CellList>
     </view>
   </view>
@@ -17,7 +9,6 @@
 
 <script>
   import wepy from 'wepy'
-  import Cell from '../../components/ui/cell'
   import CellList from '../../components/ui/cellList'
 
   export default class UI extends wepy.page {
@@ -25,10 +16,6 @@
       navigationBarTitleText: '组件库'
     }
     components = {
-      Cell: Cell,
-      Cell1: Cell,
-      Cell2: Cell,
-      Cell3: Cell,
       CellList: CellList
     }
 
@@ -36,14 +23,32 @@
 
     data = {
       isLink: true,
+      isLastCell: true,
       list: [
         {
-          title: '列表1',
-          label: '我是描述1'
+          title: '发现',
+          label: 'discover'
+        },
+        {
+          title: 'List组件',
+          value: '',
+          isLink: true,
+          url: '/pages/ui/list',
+          linkType: '$navigate'
         },
         {
           title: '列表2',
-          label: '我是描述2'
+          value: '跳转',
+          isLink: true,
+          url: '/pages/home',
+          linkType: '$switch'
+        },
+        {
+          title: '知晓程序2',
+          label: '小程序',
+          isLink: true,
+          url: '/pages/miniapp/index',
+          linkType: '$navigate'
         }
       ]
     }
@@ -64,9 +69,16 @@
 
 <style lang="less">
   .page_ui {
-    padding-top: 20vh;
-    .container {
+    .title {
+      display: block;
       width: 100%;
+      padding: 10rpx 0 10rpx 30rpx;
+      text-align: left;
+      box-sizing: border-box;
+    }
+    .panel {
+      width: 100%;
+      margin-bottom: 20rpx;
     }
   }
 </style>

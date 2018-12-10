@@ -4,6 +4,9 @@
     <navigator class="nav" url="/pages/miniapp/index">
       <button>知晓程序</button>
     </navigator>
+    <navigator class="nav" url="/pages/ui/index">
+      <button>组件库</button>
+    </navigator>
   </view>
 </template>
 

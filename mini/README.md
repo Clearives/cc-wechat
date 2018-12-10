@@ -28,7 +28,7 @@ descInput: function (e) {
 ##### 局部刷新数据
 
 - 局部刷新数据，记录当前元素，然后setData当前项
-```
+```js
 let orderIndex = _that.data.orderIndex
 _tempTuanOrderList[orderIndex].orderStatus = 4
 _tempTuanOrderList[orderIndex].orderProductList.forEach(function (v, i) {

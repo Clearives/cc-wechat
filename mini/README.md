@@ -25,6 +25,20 @@ descInput: function (e) {
 - 页面不足一屏是触发不了上拉加载
 > 根据滚动区域计算出来能放多少个元素，然后加一，注意px,rpx的转换
 
+##### 局部刷新数据
+
+- 局部刷新数据，记录当前元素，然后setData当前项
+```
+let orderIndex = _that.data.orderIndex
+_tempTuanOrderList[orderIndex].orderStatus = 4
+_tempTuanOrderList[orderIndex].orderProductList.forEach(function (v, i) {
+  v.productStatus = 1
+})
+_that.setData({
+  ["tuanOrderList["+ orderIndex + "]"]: _tempTuanOrderList[orderIndex]
+})
+```
+
 
 ##### wepy
 

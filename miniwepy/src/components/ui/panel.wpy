@@ -1,0 +1,66 @@
+<style lang="less">
+@import "../../style/base.less";
+@import "../../style/mixins.less";
+
+.c-panel {
+  position: relative;
+  overflow: hidden;
+
+  &-title {
+    font-size: @size-font-base;
+    line-height: 1;
+    color: @title-color;
+    padding: 20px 16px 10px;
+
+    &-hide-top {
+      padding-top: 0;
+    }
+  }
+
+  &-content {
+    position: relative;
+    background: #fff;
+    overflow: hidden;
+    &::after {
+      .hairline();
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+    }
+  }
+
+  &-without-border {
+    &::after {
+      border: 0 none;
+    }
+  }
+}
+</style>
+<template>
+  <view class="c-class c-panel">
+    <view wx:if="{{ title }}" class="c-panel-title {{ hideTop ? 'c-panel-title-hide-top' : '' }}">{{ title }}</view>
+    <view class="c-panel-content {{ hideBorder ? 'c-panel-without-border' : '' }}">
+      <slot></slot>
+    </view>
+</view>
+
+</template>
+<script>
+import wepy from 'wepy'
+
+export default class Panel extends wepy.component {
+  props = {
+    title: {
+      type: String,
+      value: ''
+    },
+    hideTop: {
+      type: Boolean,
+      value: false
+    },
+    hideBorder: {
+      type: Boolean,
+      value: false
+    }
+  }
+}
+</script>

@@ -44,3 +44,13 @@ _that.setData({
 
 - 组件嵌套组件，数据传递问题
 
+- 组件slot，里面嵌套组件时，传值报错
+> 解决办法：嵌套组件外面包一层<block></block>
+```html
+<Panel title='UI组件库' :hideBorder.sync='hideBorder' :hideTop.sync='hideTop'>
+  <block>
+    <CellList :list.sync='list' />
+  </block>
+</Panel>
+```
+

@@ -11,7 +11,7 @@ const wxRequest = async(params = {}, url) => {
     url: url,
     method: params.method || 'GET',
     data: data,
-    header: { 'Content-Type': 'application/json' }
+    header: params.header || { 'Content-Type': 'application/json' }
   })
   wepy.hideToast()
   console.log('『wepy Request End』', params, url)

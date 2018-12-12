@@ -1,0 +1,55 @@
+<style lang="less">
+  .c-home {
+    height: 100%;
+    .item-box {
+      height: 200rpx;
+      line-height: 200rpx;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+</style>
+<template>
+  <scroll-view bindscrolltolower="onReachBottom" scroll-y="true" class="c-home">
+    <repeat for="{{myGroupList}}" index="index">
+      <view class="item-box">{{index}}</view>
+    </repeat>
+    <view>
+      <LoadMore :show.sync='showLoading' message='正在加载...'></LoadMore>
+      <LoadMoreEnd :show.sync='showEnd' message='我是有底线的哟'></LoadMoreEnd>
+    </view>
+  </scroll-view>
+
+</template>
+<script>
+  import wepy from 'wepy'
+  import LoadMore from '../common/loadMore'
+
+
+  export default class Home extends wepy.component {
+    props = {
+      myGroupList: {
+        type: Array,
+        value: []
+      },
+      showLoading: {
+        type: Boolean
+      },
+      showEnd: {
+        type: Boolean
+      }
+    }
+
+    components = {
+      LoadMore: LoadMore,
+      LoadMoreEnd: LoadMore
+    }
+
+    methods = {
+      onReachBottom: function() {
+        this.$parent.onReachBottom()
+      }
+    }
+
+  }
+</script>

@@ -7,6 +7,7 @@
   page {
     background-color: #F8F8F8;
     font-size: 16px;
+    height: 100%;
     /*font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;*/
   }
   .container {
@@ -32,7 +33,8 @@
         'pages/auth',
         'pages/miniapp/index',
         'pages/ui/index',
-        'pages/ui/list'
+        'pages/ui/list',
+        'pages/swiper/index'
       ],
       window: {
         'backgroundTextStyle': 'light',

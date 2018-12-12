@@ -39,6 +39,9 @@ _that.setData({
 })
 ```
 
+##### 小程序登录
+
+![](http://pc1g4qy0i.bkt.clouddn.com//upload/wxlogin.png)
 
 ##### wepy
 

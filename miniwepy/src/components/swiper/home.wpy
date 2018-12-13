@@ -1,6 +1,22 @@
 <style lang="less">
   .c-home {
     height: 100%;
+    .userinfo {
+      background: #f5a623;
+      display: flex;
+      padding: 20rpx;
+      justify-content:center;
+      align-items: center;
+      .avatar {
+        width: 120rpx;
+        height: 120rpx;
+      }
+      .info {
+        flex: 1;
+        padding: 0 0 0 100rpx;
+        color: #fff;
+      }
+    }
     .item-box {
       height: 200rpx;
       line-height: 200rpx;
@@ -11,8 +27,13 @@
 </style>
 <template>
   <scroll-view bindscrolltolower="onReachBottom" scroll-y="true" class="c-home">
+    <view class="userinfo">
+      <view><image class="avatar" src="{{userInfo.avatarUrl}}"></image></view>
+      <view class="info"><text>{{userInfo.nickName}}</text></view>
+    </view>
     <repeat for="{{myGroupList}}" index="index">
-      <view class="item-box">{{index}}</view>
+      <view class="item-box">{{index}}、{{item.groupName}}</view>
+      <view></view>
     </repeat>
     <view>
       <LoadMore :show.sync='showLoading' message='正在加载...'></LoadMore>
@@ -28,6 +49,10 @@
 
   export default class Home extends wepy.component {
     props = {
+      userInfo: {
+        type: Object,
+        value: []
+      },
       myGroupList: {
         type: Array,
         value: []

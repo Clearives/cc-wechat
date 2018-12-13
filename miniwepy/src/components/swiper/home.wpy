@@ -76,6 +76,12 @@
       }
     }
 
+    events = {
+      changeCurrentTab: function (i) {
+        console.log(`$broadcast value: ${i}`)
+      }
+    }
+
     watch = {
       myGroupList (newValue, oldValue) {
         console.log(`value length: ${oldValue.length} -> ${newValue.length}`)

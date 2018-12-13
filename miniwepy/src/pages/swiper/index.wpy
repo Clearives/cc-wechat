@@ -120,6 +120,7 @@
           return
         }
         this.currentTab = i
+        this.$broadcast('changeCurrentTab', i)
         this.myGroupList = []
         this.totalPage = 0
         this.pageNo = 1

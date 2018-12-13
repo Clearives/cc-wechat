@@ -5,6 +5,7 @@
       width: 100%;
       height: 80rpx;
       line-height: 80rpx;
+      padding-bottom: 30rpx;
       background-color: #f5a623;
       color: #fff;
       text-align:center;
@@ -23,7 +24,7 @@
     .swiper {
       width: 100%;
       position: relative;
-      top: 80rpx;
+      top: 110rpx;
     }
 
     .swiper-item {
@@ -49,7 +50,7 @@
             style="height:{{winHeight}}rpx"
     >
       <swiper-item>
-        <Home :myGroupList.sync="myGroupList" :showLoading.sync="showLoading" :showEnd.sync="showEnd"></Home>
+        <Home :userInfo.sync="userInfo" :myGroupList.sync="myGroupList" :showLoading.sync="showLoading" :showEnd.sync="showEnd"></Home>
       </swiper-item>
       <swiper-item>
         2
@@ -114,9 +115,20 @@
 
     methods = {
       handleTab: function(i) {
-        this.setData({
-          currentTab: i
-        });
+        console.log(this.currentTab)
+        if (this.currentTab == i) {
+          return
+        }
+        this.currentTab = i
+        this.myGroupList = []
+        this.totalPage = 0
+        this.pageNo = 1
+        switch (i) {
+          case 0:
+            this.getListMyGroup(1)
+            break
+        }
+        this.$apply()
       },
       switchTab: function(e) {
         var current = e.detail.current
@@ -134,12 +146,12 @@
       let clientHeight = res.windowHeight
       let clientWidth = res.windowWidth
       let rpxR = 750 / clientWidth
-      let calc = clientHeight * rpxR - 80;
+      let calc = clientHeight * rpxR - 110;
       this.setData({
         winHeight: calc
       })
       this.getUser()
-      this.getListMyGroup()
+      this.getListMyGroup(1)
       this.setData({
         currentTab: 0
       })
@@ -158,11 +170,11 @@
         this.$apply()
       }
     }
-    async getListMyGroup() {
+    async getListMyGroup(pageNo) {
       let res = await apiSwiper.getListMyGroup({
         method: 'POST',
         query: {
-          pageNo: this.pageNo || 1,
+          pageNo: pageNo,
           pageSize: this.pageSize,
           startTime: '2018-05-26',
           endTime: '2018-12-12',
@@ -192,7 +204,7 @@
         }
         that.preventRepeatReuqest = true;
         that.pageNo++;
-        that.getListMyGroup();
+        that.getListMyGroup(that.pageNo);
         that.preventRepeatReuqest = false;
       } else {
         that.showLoading = false;

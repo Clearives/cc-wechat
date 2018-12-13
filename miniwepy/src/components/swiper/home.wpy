@@ -76,5 +76,11 @@
       }
     }
 
+    watch = {
+      myGroupList (newValue, oldValue) {
+        console.log(`value length: ${oldValue.length} -> ${newValue.length}`)
+      }
+    }
+
   }
 </script>

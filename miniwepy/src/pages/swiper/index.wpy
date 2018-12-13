@@ -1,0 +1,204 @@
+<style lang="less">
+  .page_swiper {
+    .tabList {
+      display: flex;
+      width: 100%;
+      height: 80rpx;
+      line-height: 80rpx;
+      background-color: #f5a623;
+      color: #fff;
+      text-align:center;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 99;
+      .tab-item {
+        flex: 1;
+        box-sizing: border-box;
+        &.active {
+          border-bottom: #fff solid 2px;
+        }
+      }
+    }
+    .swiper {
+      width: 100%;
+      position: relative;
+      top: 80rpx;
+    }
+
+    .swiper-item {
+      width: 100%;
+      height: 100%;
+    }
+  }
+</style>
+<template>
+  <view class="container page_swiper">
+    <view class="tabList">
+      <block wx:for="{{tabList}}" wx:key="key">
+        <view class="tab-item {{currentTab==index?'active':''}}" @tap="handleTab({{index}})">
+          {{item.name}}
+        </view>
+      </block>
+    </view>
+    <swiper class="swiper"
+            duration="500"
+            current="{{currentTab}}"
+            bindchange="switchTab"
+            circular="true"
+            style="height:{{winHeight}}rpx"
+    >
+      <swiper-item>
+        <Home :myGroupList.sync="myGroupList" :showLoading.sync="showLoading" :showEnd.sync="showEnd"></Home>
+      </swiper-item>
+      <swiper-item>
+        2
+      </swiper-item>
+      <swiper-item>
+        3
+      </swiper-item>
+      <swiper-item>
+        4
+      </swiper-item>
+    </swiper>
+
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import apiSwiper from '@/api/swiper/index'
+  import Home from '../../components/swiper/home'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '团购',
+      navigationBarTextStyle: 'black',
+      enablePullDownRefresh: false
+    }
+    components = {
+      Home: Home
+    }
+
+    mixins = []
+
+    data = {
+      pageNo: 1,
+      pageSize: 10,
+      totalPage: 0,
+      showLoading: true,
+      showEnd: false,
+      preventRepeatReuqest: false,
+      userInfo: {},
+      myGroupList: [],
+      tabList: [{
+        "pageKey": "home",
+        "name": "主页"
+      },
+        {
+          "pageKey": "myFatTuan",
+          "name": "团单"
+        },
+        {
+          "pageKey": "myJoinTuan",
+          "name": "参团"
+        },
+        {
+          "pageKey": "myWaterBill",
+          "name": "账单"
+        }
+      ]
+    }
+
+    computed = {}
+
+    methods = {
+      handleTab: function(i) {
+        this.setData({
+          currentTab: i
+        });
+      },
+      switchTab: function(e) {
+        var current = e.detail.current
+        this.setData({
+          currentTab: current
+        })
+      }
+    }
+
+    events = {
+    }
+
+    async onLoad() {
+      let res = await wepy.getSystemInfo()
+      let clientHeight = res.windowHeight
+      let clientWidth = res.windowWidth
+      let rpxR = 750 / clientWidth
+      let calc = clientHeight * rpxR - 80;
+      this.setData({
+        winHeight: calc
+      })
+      this.getUser()
+      this.getListMyGroup()
+      this.setData({
+        currentTab: 0
+      })
+    }
+
+    async getUser() {
+      let res = await apiSwiper.getUser({
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        query: {userNo: 'U20181209191819544788444'}
+      })
+      if (res.data.code == 200) {
+        this.userInfo = res.data.data
+        this.$apply()
+      }
+    }
+    async getListMyGroup() {
+      let res = await apiSwiper.getListMyGroup({
+        method: 'POST',
+        query: {
+          pageNo: this.pageNo || 1,
+          pageSize: this.pageSize,
+          startTime: '2018-05-26',
+          endTime: '2018-12-12',
+          userNo: 'U20181209191819544788444'
+        }
+      })
+      if (res.data.code == 200) {
+        this.myGroupList = this.myGroupList.concat(res.data.data.content)
+        this.totalPage = res.data.data.totalPage
+        this.pageNo = res.data.data.pageNo
+      }
+      this.showLoading = false;
+      this.$apply();
+    }
+
+    //加载更多
+    onReachBottom() {
+      let that = this;
+      that.showLoading = true;
+      console.log(that.showLoading)
+      console.log(that.totalPage + "===" + that.pageNo);
+      //判断总页数是否大于翻页数
+      if ((that.totalPage) > that.pageNo) {
+        //防止重复加载
+        if (that.preventRepeatReuqest) {
+          return true;
+        }
+        that.preventRepeatReuqest = true;
+        that.pageNo++;
+        that.getListMyGroup();
+        that.preventRepeatReuqest = false;
+      } else {
+        that.showLoading = false;
+        that.showEnd = true;
+      }
+      that.$apply();
+    }
+  }
+</script>

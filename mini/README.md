@@ -56,4 +56,22 @@ _that.setData({
   </block>
 </Panel>
 ```
+- 子组件监听父组件操作
+> 1、可使用$broadcast传递事件函数
+> 2、可以通过watch监听props改变
+```js
+watch = {
+  myGroupList (newValue, oldValue) {
+    console.log(`value length: ${oldValue.length} -> ${newValue.length}`)
+  }
+}
 
+// -----------------------
+this.$broadcast('changeCurrentTab', i)
+
+events = {
+  changeCurrentTab: function (i) {
+    console.log(`$broadcast value: ${i}`)
+  }
+}
+```

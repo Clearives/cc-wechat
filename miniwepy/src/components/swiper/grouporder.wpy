@@ -95,7 +95,17 @@
 
     watch = {
       tab (newValue, oldValue) {
+        let that = this
         console.log(`tab change: ${newValue} -> ${oldValue}`)
+        that.myGroupList = []
+        that.totalPage = 0
+        that.pageNo = 1
+        switch (newValue) {
+          case 1:
+            that.getListMyGroup(1)
+            break
+        }
+        this.$apply()
       }
     }
 

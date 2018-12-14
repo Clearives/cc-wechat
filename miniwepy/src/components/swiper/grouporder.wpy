@@ -1,0 +1,127 @@
+<style lang="less">
+  .c-home {
+    height: 100%;
+    .userinfo {
+      background: #f5a623;
+      display: flex;
+      padding: 20rpx;
+      justify-content:center;
+      align-items: center;
+      .avatar {
+        width: 120rpx;
+        height: 120rpx;
+      }
+      .info {
+        flex: 1;
+        padding: 0 0 0 100rpx;
+        color: #fff;
+      }
+    }
+    .item-box {
+      height: 200rpx;
+      line-height: 200rpx;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+</style>
+<template>
+  <scroll-view bindscrolltolower="onReachBottom" scroll-y="true" class="c-home">
+    <repeat for="{{myGroupList}}" index="index">
+      <view class="item-box">{{index}}、{{item.groupNo}}</view>
+      <view></view>
+    </repeat>
+    <view>
+      <LoadMore :show.sync='showLoading' message='正在加载...'></LoadMore>
+      <LoadMoreEnd :show.sync='showEnd' message='我是有底线的哟'></LoadMoreEnd>
+    </view>
+  </scroll-view>
+
+</template>
+<script>
+  import wepy from 'wepy'
+  import apiSwiper from '@/api/swiper/index'
+  import LoadMore from '../common/loadMore'
+
+
+  export default class GroupOrder extends wepy.component {
+    props = {
+      tab: {
+        type: Number
+      }
+    }
+
+    data = {
+      pageNo: 1,
+      pageSize: 10,
+      totalPage: 0,
+      showLoading: true,
+      showEnd: false,
+      preventRepeatReuqest: false,
+      myGroupList: [],
+    }
+
+    components = {
+      LoadMore: LoadMore,
+      LoadMoreEnd: LoadMore
+    }
+
+    methods = {
+      onReachBottom: function() {
+        let that = this;
+        that.showLoading = true;
+        console.log(that.showLoading)
+        console.log(that.totalPage + "===" + that.pageNo);
+        //判断总页数是否大于翻页数
+        if ((that.totalPage) > that.pageNo) {
+          //防止重复加载
+          if (that.preventRepeatReuqest) {
+            return true;
+          }
+          that.preventRepeatReuqest = true;
+          that.pageNo++;
+          that.getListMyGroup(that.pageNo);
+          that.preventRepeatReuqest = false;
+        } else {
+          that.showLoading = false;
+          that.showEnd = true;
+        }
+        that.$apply();
+      }
+    }
+
+    events = {
+    }
+
+    watch = {
+      tab (newValue, oldValue) {
+        console.log(`tab change: ${newValue} -> ${oldValue}`)
+      }
+    }
+
+    onLoad() {
+      this.getListMyGroup(1)
+    }
+
+    async getListMyGroup(pageNo) {
+      let res = await apiSwiper.getListMyGroup({
+        method: 'POST',
+        query: {
+          pageNo: pageNo,
+          pageSize: this.pageSize,
+          startTime: '2018-05-26',
+          endTime: '2018-12-12',
+          userNo: 'U20181209191819544788444'
+        }
+      })
+      if (res.data.code == 200) {
+        this.myGroupList = this.myGroupList.concat(res.data.data.content)
+        this.totalPage = res.data.data.totalPage
+        this.pageNo = res.data.data.pageNo
+      }
+      this.showLoading = false;
+      this.$apply();
+    }
+
+  }
+</script>

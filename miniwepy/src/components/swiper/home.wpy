@@ -31,6 +31,7 @@
       <view><image class="avatar" src="{{userInfo.avatarUrl}}"></image></view>
       <view class="info"><text>{{userInfo.nickName}}</text></view>
     </view>
+
     <repeat for="{{myGroupList}}" index="index">
       <view class="item-box">{{index}}、{{item.groupName}}</view>
       <view></view>
@@ -44,25 +45,26 @@
 </template>
 <script>
   import wepy from 'wepy'
+  import apiSwiper from '@/api/swiper/index'
   import LoadMore from '../common/loadMore'
 
 
   export default class Home extends wepy.component {
     props = {
-      userInfo: {
-        type: Object,
-        value: []
-      },
-      myGroupList: {
-        type: Array,
-        value: []
-      },
-      showLoading: {
-        type: Boolean
-      },
-      showEnd: {
-        type: Boolean
+      tab: {
+        type: Number
       }
+    }
+
+    data = {
+      pageNo: 1,
+      pageSize: 10,
+      totalPage: 0,
+      showLoading: true,
+      showEnd: false,
+      preventRepeatReuqest: false,
+      myGroupList: [],
+      userInfo: {}
     }
 
     components = {
@@ -72,19 +74,84 @@
 
     methods = {
       onReachBottom: function() {
-        this.$parent.onReachBottom()
+        let that = this;
+        that.showLoading = true;
+        console.log(that.showLoading)
+        console.log(that.totalPage + "===" + that.pageNo);
+        //判断总页数是否大于翻页数
+        if ((that.totalPage) > that.pageNo) {
+          //防止重复加载
+          if (that.preventRepeatReuqest) {
+            return true;
+          }
+          that.preventRepeatReuqest = true;
+          that.pageNo++;
+          that.getListMyGroup(that.pageNo);
+          that.preventRepeatReuqest = false;
+        } else {
+          that.showLoading = false;
+          that.showEnd = true;
+        }
+        that.$apply();
       }
     }
 
     events = {
-      changeCurrentTab: function (i) {
-        console.log(`$broadcast value: ${i}`)
-      }
     }
 
     watch = {
-      myGroupList (newValue, oldValue) {
-        console.log(`value length: ${oldValue.length} -> ${newValue.length}`)
+      tab (newValue, oldValue) {
+        let that = this
+        console.log(`tab change: ${newValue} -> ${oldValue}`)
+        return false
+        that.myGroupList = []
+        that.totalPage = 0
+        that.pageNo = 1
+        switch (newValue) {
+          case 0:
+            that.getListMyGroup(1)
+            break
+        }
+        this.$apply()
+      }
+    }
+
+    onLoad() {
+      this.getUser()
+      this.getListMyGroup(1)
+    }
+
+    async getListMyGroup(pageNo) {
+      let res = await apiSwiper.getListMyGroup({
+        method: 'POST',
+        query: {
+          pageNo: pageNo,
+          pageSize: this.pageSize,
+          startTime: '2018-05-26',
+          endTime: '2018-12-12',
+          userNo: 'U20181209191819544788444'
+        }
+      })
+      if (res.data.code == 200) {
+        this.myGroupList = this.myGroupList.concat(res.data.data.content)
+        this.totalPage = res.data.data.totalPage
+        this.pageNo = res.data.data.pageNo
+      }
+      this.showLoading = false;
+      this.$apply();
+    }
+
+    async getUser() {
+      let res = await apiSwiper.getUser({
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        query: {userNo: 'U20181209191819544788444'}
+      })
+      if (res.data.code == 200) {
+        this.userInfo = res.data.data
+        this.$apply()
       }
     }
 

@@ -53,7 +53,7 @@
         <Home :userInfo.sync="userInfo" :myGroupList.sync="myGroupList" :showLoading.sync="showLoading" :showEnd.sync="showEnd"></Home>
       </swiper-item>
       <swiper-item>
-        2
+        <GroupOrder :tab.sync="currentTab"></GroupOrder>
       </swiper-item>
       <swiper-item>
         3
@@ -70,6 +70,7 @@
   import wepy from 'wepy'
   import apiSwiper from '@/api/swiper/index'
   import Home from '../../components/swiper/home'
+  import GroupOrder from '../../components/swiper/grouporder'
 
   export default class Index extends wepy.page {
     config = {
@@ -78,7 +79,8 @@
       enablePullDownRefresh: false
     }
     components = {
-      Home: Home
+      Home: Home,
+      GroupOrder: GroupOrder
     }
 
     mixins = []

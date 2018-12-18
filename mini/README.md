@@ -39,6 +39,11 @@ _that.setData({
 })
 ```
 
+##### 微信小程序使用e.target.dataset的小bug
+- 在微信开发中我们经常会用到标签中属性的属性值，有时候我们通过data-*和 e.target.dataset来获取属性值会出现一点小bug，即是调用出来的数据是undefined，即取不到值。 
+
+> 解决办法：在data后面的属性名是不能按照驼峰式的写法，只要把定义的属性名全部换成小写就没有问题了
+
 ##### 小程序登录
 
 ![](http://pc1g4qy0i.bkt.clouddn.com//upload/wxlogin.png)

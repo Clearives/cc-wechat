@@ -44,6 +44,16 @@ _that.setData({
 
 > 解决办法：在data后面的属性名是不能按照驼峰式的写法，只要把定义的属性名全部换成小写就没有问题了
 
+##### 小程序正则使用
+```$js
+var formatText = function (str) {
+    var reg = getRegExp(" ", "g");
+    return str.replace(reg, '&nbsp;');
+}
+module.exports = { formatText: formatText};
+```
+> 新建wxs文件，然后在wxml里面引入,使用js函数即可正则转换字符串
+
 ##### 小程序登录
 
 ![](http://pc1g4qy0i.bkt.clouddn.com//upload/wxlogin.png)

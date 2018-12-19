@@ -71,6 +71,9 @@ module.exports = { formatText: formatText};
 }
 ```
 
+###### 小程序canvas生成图片模糊
+> 因为绘制的坐标不是整数级的坐标，所以会变得模糊，所以在计算坐标的时候可以使用 Math.floor 将坐标取整，这样绘制就会变得清晰
+
 ##### 小程序登录
 
 ![](http://pc1g4qy0i.bkt.clouddn.com//upload/wxlogin.png)

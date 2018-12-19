@@ -54,6 +54,23 @@ module.exports = { formatText: formatText};
 ```
 > 新建wxs文件，然后在wxml里面引入,使用js函数即可正则转换字符串
 
+###### 小程序canvas文字居中设置
+-  this.ctx.fillText(fillText, left, fillTop); left是以文本的中间位置定位的。
+  所以只需要将屏幕宽度除2放在x位置就可以了,也就是left设置为总宽度除以2,textAlign设为center即可。
+  
+```$js
+{
+  "type": "text",
+  "content": "果粒奶优不好喝",
+  "fontSize": 12,
+  "color": "#f8f8f8",
+  "textAlign": "center",
+  "top": 570,
+  "left": 375/2,
+  "width": 375,
+}
+```
+
 ##### 小程序登录
 
 ![](http://pc1g4qy0i.bkt.clouddn.com//upload/wxlogin.png)

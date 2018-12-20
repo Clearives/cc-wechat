@@ -7,28 +7,64 @@
     <navigator class="nav" url="/pages/ui/index">
       <button>组件库</button>
     </navigator>
+    <image src="{{shareImage}}" class="share-image"></image>
+    <canvasdrawer :painting.sync="painting" @getImage.user="eventGetImage"></canvasdrawer>
+    <button @tap="eventDraw">绘制</button>
+    <button @tap="eventSave">保存到本地</button>
   </view>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import canvasdrawer from "../components/canvasdrawer/canvasdrawer"
+  import DrawerData from "../components/canvasdrawer/drawerdata"
 
   export default class Home extends wepy.page {
     config = {
       navigationBarTitleText: '首页'
     }
     components = {
+      canvasdrawer: canvasdrawer
     }
 
     mixins = []
 
     data = {
+      shareImage: "",
+      painting: null
     }
 
     computed = {
     }
 
     methods = {
+      eventDraw() {
+        wepy.showLoading({
+          title: "绘制分享图片中",
+          mask: true
+        });
+        DrawerData.mode = new Date().getTime()
+        this.painting = DrawerData;
+        this.$apply();
+      },
+      async eventSave() {
+        // 保存图片至本地
+        const res = await wepy.saveImageToPhotosAlbum({
+          filePath: this.shareImage
+        });
+        if (res.errMsg === "saveImageToPhotosAlbum:ok") {
+          wepy.showToast({
+            title: "保存图片成功",
+            icon: "success",
+            duration: 2000
+          });
+        }
+      },
+      eventGetImage(event) {
+        wepy.hideLoading();
+        const { tempFilePath, errMsg } = event;
+        if (errMsg === "canvasdrawer:ok") this.shareImage = tempFilePath;
+      }
     }
 
     events = {
@@ -44,6 +80,16 @@
     padding-top: 20vh;
     .nav {
       margin-top: 100rpx;
+    }
+    .share-image {
+      display: block;
+      width: 750rpx * 0.8;
+      height: 1200rpx * 0.8;
+      margin: 40rpx auto;
+    }
+
+    button {
+      margin-top: 20rpx;
     }
   }
 </style>

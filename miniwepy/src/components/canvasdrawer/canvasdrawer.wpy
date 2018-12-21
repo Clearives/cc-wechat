@@ -40,6 +40,7 @@
 
     watch = {
       painting(newVal, oldVal) {
+        wepy.removeStorageSync("canvasdrawer_pic_cache");
         if (!this.isPainting) {
           if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
             if (newVal && newVal.width && newVal.height) {
@@ -58,6 +59,12 @@
         }
       }
     };
+
+    events = {
+      painting(newVal) {
+        console.log(newVal)
+      }
+    }
 
     methods = {};
 
@@ -78,7 +85,7 @@
           this.getImageList(views);
           this.downLoadImages(0);
         }
-      }, 10);
+      }, 100);
     }
 
     getImageList(views) {

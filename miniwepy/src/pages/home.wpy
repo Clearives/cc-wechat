@@ -7,10 +7,13 @@
     <navigator class="nav" url="/pages/ui/index">
       <button>组件库</button>
     </navigator>
-    <image src="{{shareImage}}" class="share-image"></image>
     <canvasdrawer :painting.sync="painting" @getImage.user="eventGetImage"></canvasdrawer>
     <button @tap="eventDraw">绘制</button>
-    <button @tap="eventSave">保存到本地</button>
+    <view class="share-box" wx:if="{{show}}">
+      <image src="{{shareImage}}" class="share-image" @tap="eventSave"></image>
+      <!--<button @tap="eventSave">保存到本地</button>-->
+      <view class="pop_mask" @tap="close"></view>
+    </view>
   </view>
 </template>
 
@@ -31,7 +34,8 @@
 
     data = {
       shareImage: "",
-      painting: null
+      painting: null,
+      show: false
     }
 
     computed = {
@@ -46,6 +50,10 @@
         DrawerData.mode = new Date().getTime()
         this.painting = DrawerData;
         this.$apply();
+      },
+      close() {
+        this.show = false
+        this.$apply()
       },
       async eventSave() {
         // 保存图片至本地
@@ -64,6 +72,8 @@
         wepy.hideLoading();
         const { tempFilePath, errMsg } = event;
         if (errMsg === "canvasdrawer:ok") this.shareImage = tempFilePath;
+        this.show = true;
+        this.$apply();
       }
     }
 
@@ -81,11 +91,55 @@
     .nav {
       margin-top: 100rpx;
     }
+    .share-box {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      bottom: 0;
+      background: #fff;
+      z-index: 100;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -moz-box-orient: vertical;
+      -moz-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: center;
+      -moz-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -moz-box-sizing: border-box;
+    }
+    .pop_mask {
+      background-color: rgba(0, 0, 0, .6);
+      position: fixed;
+      z-index: 101;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      top: 0;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
     .share-image {
       display: block;
       width: 750rpx * 0.8;
       height: 1200rpx * 0.8;
       margin: 40rpx auto;
+      position: relative;
+      z-index: 102;
     }
 
     button {

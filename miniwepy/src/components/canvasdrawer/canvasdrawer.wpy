@@ -41,6 +41,9 @@
     watch = {
       painting(newVal, oldVal) {
         wepy.removeStorageSync("canvasdrawer_pic_cache");
+        if (oldVal) {
+          newVal.mode = oldVal.mode = '-1'
+        }
         if (!this.isPainting) {
           if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
             if (newVal && newVal.width && newVal.height) {
@@ -51,9 +54,11 @@
             }
           } else {
             if (newVal && newVal.mode !== "same") {
-              this.$emit("getImage", {
-                errMsg: "canvasdrawer:samme params"
-              });
+              setTimeout(() => {
+                this.$emit("getImage", {
+                  errMsg: "canvasdrawer:samme params"
+                });
+              }, 1000)
             }
           }
         }
@@ -62,7 +67,6 @@
 
     events = {
       painting(newVal) {
-        console.log(newVal)
       }
     }
 

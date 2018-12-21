@@ -47,8 +47,10 @@
           title: "绘制分享图片中",
           mask: true
         });
-        DrawerData.mode = new Date().getTime()
+        // DrawerData.mode = 'same'
         this.painting = DrawerData;
+        this.painting.mode = new Date().getTime();
+        this.$broadcast('painting', this.painting.mode)
         this.$apply();
       },
       close() {

@@ -4,7 +4,7 @@ export default {
   namespace: 'example',
 
   state: {
-    a: 2
+    count: 0
   },
 
   subscriptions: {
@@ -14,13 +14,15 @@ export default {
 
   effects: {
     *fetch({ payload }, { call, put }) {  // eslint-disable-line
-      yield put({ type: 'save' });
+      yield put({ type: 'add' });
     },
   },
 
   reducers: {
-    save(state, action) {
-      return { ...state, ...action.payload };
+    add(state, action) {
+      let newCount = state.count + action.payload
+      state.count = newCount
+      return {...state};
     },
   },
 

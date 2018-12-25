@@ -7,7 +7,8 @@ export default {
   state: {
     count: 0,
     limit: 10,
-    offset: 0
+    offset: 0,
+    miniAppList: []
   },
 
   subscriptions: {
@@ -17,7 +18,15 @@ export default {
 
   effects: {
     *query({ payload: {limit, offset} }, { call, put }) {  // eslint-disable-line
-      yield call(exampleService.query, limit, offset);
+      const res = yield call(exampleService.query, limit, offset)
+      const {meta, objects} = res.data
+      yield put({
+        type: 'update',
+        payload: {
+          meta,
+          objects
+        }
+      });
     },
   },
 
@@ -25,8 +34,14 @@ export default {
     add(state, action) {
       let newCount = state.count + action.payload
       state.count = newCount
-      return {...state};
+      return {...state}
     },
+    update(state, action) {
+      let payload = action.payload
+      console.log(payload)
+      state.offset = state.offset + state.limit
+      state.miniAppList = state.miniAppList.concat(payload.objects)
+    }
   },
 
 };

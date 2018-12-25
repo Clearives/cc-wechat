@@ -1,3 +1,4 @@
+import * as exampleService from '../services/example';
 
 export default {
 
@@ -13,8 +14,8 @@ export default {
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {  // eslint-disable-line
-      yield put({ type: 'add' });
+    *query({ payload }, { call, put }) {  // eslint-disable-line
+      yield call(exampleService.query);
     },
   },
 

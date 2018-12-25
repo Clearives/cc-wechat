@@ -13,6 +13,9 @@ class IndexPage extends Component{
   handleChange(){
     const { dispatch } = this.props;
     dispatch({
+      type: 'example/query'
+    });
+    dispatch({
       type: 'example/add',
       payload: 2,
     });

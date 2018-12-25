@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.css';
 
-@connect(({ example }) => ({ example }))
+@connect(({ example }) => ({
+  indexList: example
+}))
 class IndexPage extends Component{
 
   state = {
@@ -17,11 +19,11 @@ class IndexPage extends Component{
   }
 
   render(){
-    console.log(this.props.example)
+    console.log(this.props.indexList)
     return (
       <div className={styles.normal}>
         <h1 className={styles.title}>Yay! </h1>
-        <p>{this.props.example.count}</p>
+        <p>{this.props.indexList.count}</p>
         <button onClick={this.handleChange.bind(this)}>点击</button>
       </div>
     );

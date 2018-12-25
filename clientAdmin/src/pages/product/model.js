@@ -1,8 +1,8 @@
-import * as exampleService from '../services/example';
+import * as productService from '../../services/product';
 
 export default {
 
-  namespace: 'example',
+  namespace: 'product',
 
   state: {
     count: 0,
@@ -18,7 +18,7 @@ export default {
 
   effects: {
     *query({ payload: {limit, offset} }, { call, put }) {  // eslint-disable-line
-      const res = yield call(exampleService.query, limit, offset)
+      const res = yield call(productService.query, limit, offset)
       const {meta, objects} = res.data
       yield put({
         type: 'update',
@@ -41,6 +41,7 @@ export default {
       console.log(payload)
       state.offset = state.offset + state.limit
       state.miniAppList = state.miniAppList.concat(payload.objects)
+      return {...state}
     }
   },
 

@@ -5,7 +5,9 @@ export default {
   namespace: 'example',
 
   state: {
-    count: 0
+    count: 0,
+    limit: 10,
+    offset: 0
   },
 
   subscriptions: {
@@ -14,8 +16,8 @@ export default {
   },
 
   effects: {
-    *query({ payload }, { call, put }) {  // eslint-disable-line
-      yield call(exampleService.query);
+    *query({ payload: {limit, offset} }, { call, put }) {  // eslint-disable-line
+      yield call(exampleService.query, limit, offset);
     },
   },
 

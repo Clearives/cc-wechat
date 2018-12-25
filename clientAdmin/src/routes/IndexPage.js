@@ -11,9 +11,13 @@ class IndexPage extends Component{
   };
 
   handleChange(){
-    const { dispatch } = this.props;
+    const { dispatch, indexList } = this.props;
     dispatch({
-      type: 'example/query'
+      type: 'example/query',
+      payload: {
+        limit: 10,
+        offset: indexList.offset
+      }
     });
     dispatch({
       type: 'example/add',

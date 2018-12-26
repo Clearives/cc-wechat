@@ -43,7 +43,6 @@ export default {
     },
     update(state, action) {
       let payload = action.payload
-      console.log(payload)
       state.offset = state.offset + state.limit
       state.meta = {
         current: payload.meta.offset / payload.meta.limit + 1,

@@ -1,44 +1,48 @@
-import { Table, Pagination, Button } from 'antd'
+import {Table, Pagination, Button} from 'antd'
 import React, {Component} from 'react'
-import { connect } from 'dva'
+import {connect} from 'dva'
 import styles from './index.css'
 
-@connect(({ product }) => ({
+@connect(({product}) => ({
   indexList: product
 }))
 
-class ProductList extends Component{
+class ProductList extends Component {
 
-  state = {
-  };
+  state = {};
 
-  handleChange(){
-    const { dispatch, indexList } = this.props;
+  componentWillMount() {
+    const {dispatch} = this.props;
     dispatch({
       type: 'product/query',
       payload: {
         limit: 10,
-        offset: indexList.offset
+        offset: 0
       }
     })
+  }
+
+  handleChange() {
+    const {dispatch} = this.props;
     dispatch({
       type: 'product/add',
       payload: 2,
     })
   }
 
-  onChange() {
-    const { dispatch, indexList } = this.props;
+  onChange = (pagination) => {
+    const {dispatch, indexList} = this.props
+    const {current} = pagination
     dispatch({
       type: 'product/query',
       payload: {
         limit: 10,
-        offset: indexList.offset
+        offset: (current - 1) * 10
       }
     })
   }
 
-  render(){
+  render() {
     console.log(this.props.indexList)
     const columns = [{
       title: '名称',
@@ -49,6 +53,7 @@ class ProductList extends Component{
       title: '描述',
       dataIndex: 'description',
       key: 'description',
+      className: styles.desc,
     }, {
       title: '创建人',
       dataIndex: 'created_by',
@@ -67,7 +72,7 @@ class ProductList extends Component{
             dataSource={dataSource}
             columns={columns}
             pagination={paginationProps}
-            onChange={() => {this.onChange()}}
+            onChange={this.onChange}
           />
         </div>
       </div>
@@ -75,8 +80,7 @@ class ProductList extends Component{
   }
 }
 
-ProductList.propTypes = {
-};
+ProductList.propTypes = {};
 
 export default ProductList;
 // const ProductList = ({ onDelete, products }) => {

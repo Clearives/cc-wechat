@@ -2,3 +2,7 @@
 .normal {
   background: #F2E279;
 }
+.tableContainer {
+  width: 1000px;
+  margin: 0 auto;
+}

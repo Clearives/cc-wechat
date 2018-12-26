@@ -8,6 +8,11 @@ export default {
     count: 0,
     limit: 10,
     offset: 0,
+    meta : {
+      current: 1,
+      pageSize: 10,
+      total: 0
+    },
     miniAppList: []
   },
 
@@ -40,7 +45,12 @@ export default {
       let payload = action.payload
       console.log(payload)
       state.offset = state.offset + state.limit
-      state.miniAppList = state.miniAppList.concat(payload.objects)
+      state.meta = {
+        current: payload.meta.offset / payload.meta.limit + 1,
+        pageSize: payload.meta.limit,
+        total: payload.meta.total_count
+      }
+      state.miniAppList = payload.objects
       return {...state}
     }
   },

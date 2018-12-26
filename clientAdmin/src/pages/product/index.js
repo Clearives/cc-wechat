@@ -1,7 +1,7 @@
 import {Table, Pagination, Button} from 'antd'
 import React, {Component} from 'react'
 import {connect} from 'dva'
-import styles from './index.less'
+import styles from './index.css'
 
 @connect(({product}) => ({
   indexList: product

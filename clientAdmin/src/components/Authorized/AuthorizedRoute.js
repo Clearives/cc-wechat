@@ -4,7 +4,6 @@ import Authorized from './Authorized';
 
 // TODO: umi只会返回render和rest
 const AuthorizedRoute = ({ component: Component, render, authority, redirectPath, ...rest }) => {
-  debugger
   return (
     <Authorized
       authority={authority}

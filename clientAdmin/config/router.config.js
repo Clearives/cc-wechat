@@ -1,10 +1,27 @@
 export default [
   {
-    path: '/product',
+    path: '/',
     component: '../layouts/BasicLayout',
     routes: [
-      { path: '/product/income', component: './product/income', name: 'income' },
-      { path: '/product/list', component: './product/list', name: 'list' },
+      {
+        path: '/',
+        redirect: '/product/income',
+      },
+      {
+        path: '/product/income',
+        component: './product/income',
+        name: 'analysis',
+      },
+      {
+        path: '/product/inout',
+        component: './product/inout',
+        name: 'inout',
+      },
+      {
+        path: '/product/list',
+        component: './product/list',
+        name: 'monitor',
+      },
     ],
   },
 ];

@@ -1,12 +1,14 @@
-import { connect } from 'dva'
-import { Layout } from 'antd'
+import {connect} from 'dva'
+import {Layout} from 'antd'
 import pathToRegexp from 'path-to-regexp';
 import Authorized from '@/utils/Authorized';
 import SiderMenu from '../components/SiderMenu'
 import Exception403 from '../pages/Exception/403'
 import styles from './index.less';
 
-@connect(({ menu }) => ({
+const {Content} = Layout;
+
+@connect(({menu}) => ({
   menuData: menu.menuData,
   breadcrumbNameMap: menu.breadcrumbNameMap,
 }))
@@ -18,11 +20,11 @@ class BasicLayout extends React.PureComponent {
   componentDidMount() {
     const {
       dispatch,
-      route: { routes, authority },
+      route: {routes, authority},
     } = this.props
     dispatch({
       type: 'menu/getMenuData',
-      payload: { routes, authority },
+      payload: {routes, authority},
     })
   }
 
@@ -63,9 +65,11 @@ class BasicLayout extends React.PureComponent {
         />
         <Layout>
           <div className={styles.header}>Header</div>
-          <Authorized authority={routerConfig} noMatch={<Exception403 />}>
-            {props.children}
-          </Authorized>
+          <Content className={styles.content}>
+            <Authorized authority={routerConfig} noMatch={<Exception403/>}>
+              {props.children}
+            </Authorized>
+          </Content>
         </Layout>
       </Layout>
     )

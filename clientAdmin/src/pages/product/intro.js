@@ -7,7 +7,7 @@ import router from 'umi/router';
   indexList: product
 }))
 
-class ProductIndex extends Component {
+class ProductIntro extends Component {
 
   state = {};
 
@@ -19,13 +19,13 @@ class ProductIndex extends Component {
     return (
       <div>
         <h1>Yay! </h1>
-        <Button onClick={this.handleClick}>点击返回</Button>
+        <p>项目介绍</p>
       </div>
     );
   }
 }
 
-ProductIndex.propTypes = {};
+ProductIntro.propTypes = {};
 
-export default ProductIndex;
+export default ProductIntro;
 

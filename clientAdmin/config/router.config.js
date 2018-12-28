@@ -35,6 +35,11 @@ export default [
         icon: 'github',
         routes: [
           {
+            path: '/github/profile',
+            component: './github/profile',
+            name: '主页',
+          },
+          {
             path: '/github/repo',
             component: './product/income',
             name: '仓库',

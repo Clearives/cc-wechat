@@ -1,14 +1,16 @@
 import {connect} from 'dva'
 import {Layout} from 'antd'
-import pathToRegexp from 'path-to-regexp';
-import Authorized from '@/utils/Authorized';
+import pathToRegexp from 'path-to-regexp'
+import Authorized from '@/utils/Authorized'
 import SiderMenu from '../components/SiderMenu'
+import Header from './Header'
 import Exception403 from '../pages/Exception/403'
-import styles from './index.less';
+import styles from './index.less'
 
 const {Content} = Layout;
 
-@connect(({menu}) => ({
+@connect(({global, menu}) => ({
+  collapsed: global.collapsed,
   menuData: menu.menuData,
   breadcrumbNameMap: menu.breadcrumbNameMap,
 }))
@@ -44,6 +46,14 @@ class BasicLayout extends React.PureComponent {
     return getAuthority(pathname, routeData);
   }
 
+  handleMenuCollapse = collapsed => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'global/changeLayoutCollapsed',
+      payload: collapsed,
+    });
+  };
+
   render() {
     let props = this.props
     let logo = 'https://static2.zyxr.com/a1dcb7ad949544d1a30634bbdc036be2.jpg'
@@ -64,7 +74,13 @@ class BasicLayout extends React.PureComponent {
           {...this.props}
         />
         <Layout>
-          <div className={styles.header}>Header</div>
+          <Header
+            menuData={menuData}
+            handleMenuCollapse={this.handleMenuCollapse}
+            logo={logo}
+            isMobile={isMobile}
+            {...this.props}
+          />
           <Content className={styles.content}>
             <Authorized authority={routerConfig} noMatch={<Exception403/>}>
               {props.children}

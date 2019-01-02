@@ -1,5 +1,6 @@
 // https://umijs.org/config/
 import os from 'os';
+import { resolve } from 'path';
 import pageRoutes from './router.config';
 // import webpackPlugin from './plugin.config';
 // import defaultSettings from '../src/defaultSettings';
@@ -66,6 +67,9 @@ export default {
       "changeOrigin": true,
       "pathRewrite": { "^/api" : "/" }
     }
+  },
+  alias: {
+    utils: resolve(__dirname, './src/utils'),
   },
   ignoreMomentLocale: true,
   lessLoaderOptions: {

@@ -5,7 +5,7 @@ export default [
     routes: [
       {
         path: '/',
-        redirect: '/product/intro',
+        redirect: '/github/profile',
       },
       {
         path: '/product',

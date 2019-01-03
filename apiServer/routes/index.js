@@ -1,9 +1,12 @@
 const router = require('koa-router')()
+const api = require('./api')
+const iwx = require('./iwx')
 const { serverVerify } = require('../controllers/serverVerify')
-const { wxJsConfig } = require('../controllers/iwx/wxJsConfig')
+
 
 router.get('/serverVerify', serverVerify)
-router.get('/iwx/wxJsConfig', wxJsConfig)
+router.use('/api', api.routes(), api.allowedMethods())
+router.use('/iwx', iwx.routes(), iwx.allowedMethods())
 
 
 module.exports = router

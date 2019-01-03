@@ -1,7 +1,7 @@
 import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import Hello from 'client/components/Hello.jsx'
+import Hello from 'clientWap/components/Hello.jsx'
 
 Enzyme.configure({ adapter: new Adapter() })
 

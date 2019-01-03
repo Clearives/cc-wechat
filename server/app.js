@@ -5,9 +5,9 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const http = require('http')
-const {normalizePort, onError, onListening} = require('./server/utils/serverUtils').serverUtils
+const {normalizePort, onError, onListening} = require('./utils/serverUtils').serverUtils
 const port = normalizePort(process.env.PORT || '4009');
-const index = require('./server/routes/index')
+const index = require('./routes/index')
 
 // error handler
 onerror(app)

@@ -1,8 +1,11 @@
+let mongoose =  require('mongoose')
+let Demo = mongoose.model('Demo')
 exports.demo = async (ctx, next) => {
+  let res = await Demo.find({}).exec()
   ctx.body = {
     success: true,
     data: {
-      msg: 'ok'
+      demo: res
     }
   }
 }

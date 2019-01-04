@@ -57,7 +57,7 @@ onerror(app)
 app.use(bodyparser({
   enableTypes:['text'],
   extendTypes: {
-      text: ['text/xml']
+      text: ['application/json']
   }
 }))
 app.use(json())

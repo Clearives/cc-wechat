@@ -6,14 +6,14 @@ export default {
 
   state: {
     count: 0,
-    limit: 10,
-    offset: 0,
-    meta : {
+    pageSize: 10,
+    pageNo: 1,
+    productList: [],
+    pagination: {
       current: 1,
       pageSize: 10,
       total: 0
-    },
-    miniAppList: []
+    }
   },
 
   subscriptions: {
@@ -22,36 +22,31 @@ export default {
   },
 
   effects: {
-    *query({ payload: {limit, offset} }, { call, put }) {  // eslint-disable-line
-      const res = yield call(productService.query, limit, offset)
-      const {meta, objects} = res.data
+    * query({ payload: { pageSize, pageNo } }, { call, put }) {  // eslint-disable-line
+      const res = yield call(productService.query, pageSize, pageNo);
+      const { pagination, content } = res.data.data;
       yield put({
         type: 'update',
         payload: {
-          meta,
-          objects
-        }
+          pagination,
+          content,
+        },
       });
     },
   },
 
   reducers: {
     add(state, action) {
-      let newCount = state.count + action.payload
-      state.count = newCount
-      return {...state}
+      let newCount = state.count + action.payload;
+      state.count = newCount;
+      return { ...state };
     },
     update(state, action) {
-      let payload = action.payload
-      state.offset = state.offset + state.limit
-      state.meta = {
-        current: payload.meta.offset / payload.meta.limit + 1,
-        pageSize: payload.meta.limit,
-        total: payload.meta.total_count
-      }
-      state.miniAppList = payload.objects
-      return {...state}
-    }
+      let payload = action.payload;
+      state.pagination = payload.pagination;
+      state.productList = payload.content;
+      return { ...state };
+    },
   },
 
 };

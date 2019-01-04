@@ -4,7 +4,7 @@ import {connect} from 'dva'
 import styles from './index.css'
 
 @connect(({product}) => ({
-  indexList: product
+  product: product
 }))
 
 class ProductList extends Component {
@@ -16,8 +16,8 @@ class ProductList extends Component {
     dispatch({
       type: 'product/query',
       payload: {
-        limit: 10,
-        offset: 0
+        pageSize: 3,
+        pageNo: 1
       }
     })
   }
@@ -31,19 +31,19 @@ class ProductList extends Component {
   }
 
   onChange = (pagination) => {
-    const {dispatch, indexList} = this.props
+    const {dispatch, product} = this.props
     const {current} = pagination
     dispatch({
       type: 'product/query',
       payload: {
-        limit: 10,
-        offset: (current - 1) * 10
+        pageSize: 3,
+        pageNo: current
       }
     })
   }
 
   render() {
-    console.log(this.props.indexList)
+    console.log(this.props.product)
     const columns = [{
       title: '名称',
       dataIndex: 'name',
@@ -55,20 +55,20 @@ class ProductList extends Component {
       key: 'description',
       className: styles.desc,
     }, {
-      title: '创建人',
-      dataIndex: 'created_by',
-      key: 'created_by',
+      title: '价格',
+      dataIndex: 'price',
+      key: 'price',
     }];
-    const dataSource = this.props.indexList.miniAppList
-    const paginationProps = this.props.indexList.meta
+    const dataSource = this.props.product.productList
+    const paginationProps = this.props.product.pagination
     return (
       <div>
         <h1>Yay! </h1>
-        <p>{this.props.indexList.count}</p>
+        <p>{this.props.product.count}</p>
         <Button onClick={this.handleChange.bind(this)}>点击</Button>
         <div className={styles.tableContainer}>
           <Table
-            rowKey={record => record.id}
+            rowKey={record => record._id}
             dataSource={dataSource}
             columns={columns}
             pagination={paginationProps}

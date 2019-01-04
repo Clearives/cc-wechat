@@ -54,12 +54,7 @@ const index = require('./routes/index')
 onerror(app)
 
 // middlewares
-app.use(bodyparser({
-  enableTypes:['text'],
-  extendTypes: {
-      text: ['application/json']
-  }
-}))
+app.use(bodyparser())
 app.use(json())
 app.use(require('koa-static')('./dist'))
 

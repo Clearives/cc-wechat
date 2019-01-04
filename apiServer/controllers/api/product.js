@@ -2,11 +2,19 @@ let mongoose = require('mongoose');
 let Product = mongoose.model('Product');
 
 exports.list = async (ctx, next) => {
-  let res = await Product.find({}).exec();
+  let query = ctx.query;
+  let pageSize = +query.pageSize;
+  let pageNo = +query.pageNo;
+  let res = await Product.find().limit(pageSize).skip(pageSize * (pageNo - 1)).exec();
+  let totalRecord = await Product.count().exec();
   ctx.body = {
     code: '200',
-    data: res,
-    msg: '成功~'
+    data: {
+      content: res,
+      totalPage: Math.ceil(totalRecord / pageSize),
+      totalRecord: totalRecord,
+    },
+    msg: '成功~',
   };
 };
 

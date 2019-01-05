@@ -6,6 +6,7 @@ const bodyparser = require('koa-bodyparser')
 const http = require('http')
 const fs = require('fs')
 const path = require('path')
+const koaCors = require('koa2-cors');
 const {normalizePort, onError, onListening} = require('./utils/serverUtils').serverUtils
 const port = normalizePort(process.env.PORT || '4009');
 const mongoose = require('mongoose')
@@ -48,7 +49,20 @@ var walk = function(modelPath) {
 walk(models_path)
 
 const app = new Koa()
-const index = require('./routes/index')
+app.use(koaCors({
+  origin: function(ctx) {
+    if (ctx.url === '/test') {
+      return false;
+    }
+    return 'http://localhost:8001';
+  },
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 86400,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}));
+
 
 // error handler
 onerror(app)
@@ -71,6 +85,7 @@ app.use(async (ctx, next) => {
 })
 
 // routes
+const index = require('./routes/index')
 app.use(index.routes(), index.allowedMethods())
 
 // error-handling

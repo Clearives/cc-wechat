@@ -11,8 +11,12 @@ exports.list = async (ctx, next) => {
     code: '200',
     data: {
       content: res,
-      totalPage: Math.ceil(totalRecord / pageSize),
-      totalRecord: totalRecord,
+      pagination: {
+        current: pageNo || 1,
+        pageSize: pageSize || 10,
+        total: totalRecord,
+        totalPage: Math.ceil(totalRecord / pageSize),
+      }
     },
     msg: '成功~',
   };
